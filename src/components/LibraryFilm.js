@@ -1,32 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
-import { addFilm, loadFilms } from '../actions/filmsAction'
+import { removeFilm } from '../actions/filmsAction'
 
-const Film = (film) => {
+const LibraryFilm = (film) => {
   const { id, title, poster_path, vote_average, release_date } = film
   const dispatch = useDispatch()
 
-  const [disabled, setDisabled] = useState(false)
-
   const { myLibrary } = useSelector((state) => state.library)
 
-  useEffect(() => {
-    checkFilmInLibrary()
-  })
-
-  const checkFilmInLibrary = () => {
-    const checker = myLibrary.filter((item) => item.id === id)
-    if (checker.length > 0) {
-      setDisabled(true)
-    } else {
-      setDisabled(false)
-    }
-  }
-
-  const addToLibraryHandler = () => {
-    dispatch(addFilm({ ...film }))
-    checkFilmInLibrary()
+  const removeFilmFromLibrary = () => {
+    dispatch(removeFilm(id))
   }
 
   return (
@@ -39,12 +23,7 @@ const Film = (film) => {
           <div>Оценка: {vote_average} / 10</div> <div>{release_date}</div>
         </FilmParameters>
 
-        <button
-          disabled={disabled ? 'disabled' : ''}
-          onClick={addToLibraryHandler}
-        >
-          Добавить в библиотеку
-        </button>
+        <button onClick={removeFilmFromLibrary}>Удалить из библиотеки</button>
       </FilmBottomContent>
     </FilmWrapper>
   )
@@ -84,4 +63,4 @@ const FilmParameters = styled.div`
   margin-bottom: 15px;
 `
 
-export default Film
+export default LibraryFilm

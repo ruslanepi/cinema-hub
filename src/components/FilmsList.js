@@ -12,7 +12,7 @@ const FilmsList = () => {
 
   useEffect(() => {
     dispatch(loadFilms(currentFilter))
-  }, [currentFilter])
+  }, [currentFilter, dispatch])
 
   const filterHandler = (e) => {
     setCurrentFilter(e.target.value)
@@ -35,7 +35,6 @@ const FilmsList = () => {
       <div>
         <FilmsWrapper>
           {popularFilms.map((film) => {
-            console.log(film)
             return <Film key={film.id} {...film} />
           })}
         </FilmsWrapper>

@@ -14,3 +14,17 @@ export const loadFilms = (genre) => async (dispatch) => {
     },
   })
 }
+
+export const addFilm = (film) => (dispatch) => {
+  dispatch({
+    type: 'ADD_TO_LIBRARY',
+    payload: film,
+  })
+}
+
+export const removeFilm = (id) => (dispatch) => {
+  dispatch({
+    type: 'REMOVE_FILM',
+    payload: id,
+  })
+}
