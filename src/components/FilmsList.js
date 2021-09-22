@@ -2,21 +2,20 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadFilms } from '../actions/filmsAction'
 import styled from 'styled-components'
-import DetailFilm from './DetailFilm'
+import DetailFilm from './Detail/DetailFilm'
 
 import Film from './Film'
 
 const FilmsList = () => {
   const dispatch = useDispatch()
   const { popularFilms, newFilms } = useSelector((state) => state.films)
-  const [currentFilter, setCurrentFilter] = useState(28)
 
   useEffect(() => {
-    dispatch(loadFilms(currentFilter))
-  }, [currentFilter, dispatch])
+    dispatch(loadFilms(28))
+  }, [])
 
   const filterHandler = (e) => {
-    setCurrentFilter(e.target.value)
+    dispatch(loadFilms(e.target.value))
   }
 
   return (

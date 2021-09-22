@@ -4,6 +4,7 @@ import {
   newFilmsURL,
   detailFilmURL,
   screensFilmURL,
+  popularActorsURL,
 } from '../api'
 
 export const loadFilms = (genre) => async (dispatch) => {
@@ -54,5 +55,16 @@ export const getDetails = (id) => async (dispatch) => {
 export const toggleDetail = () => (dispatch) => {
   dispatch({
     type: 'TOGGLE_DETAIL_VISIBLE',
+  })
+}
+
+export const loadActors = () => async (dispatch) => {
+  const popularActorsData = await axios.get(popularActorsURL())
+
+  dispatch({
+    type: 'FETCH_ACTORS',
+    payload: {
+      popularActors: popularActorsData.data,
+    },
   })
 }

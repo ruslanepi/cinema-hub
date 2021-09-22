@@ -4,6 +4,7 @@ import Logo from './components/Logo'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 import Profile from './components/Profile'
+import Actors from './components/Actors/Actors'
 
 import styled from 'styled-components'
 import GlobalStyles from './components/GlobalStyles'
@@ -44,11 +45,13 @@ function App() {
                 <Route path='/profile'>
                   <Profile />
                 </Route>
+                <Route path='/actors'>
+                  <Actors />
+                </Route>
               </Switch>
             </Col>
           </Row>
         </Container>
-        <Footer />
       </Router>
     </div>
   )

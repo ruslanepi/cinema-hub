@@ -19,3 +19,6 @@ export const detailFilmURL = (id) =>
 
 export const screensFilmURL = (id) =>
   `${base_url}/3/movie/${id}/images?${api_key}`
+
+export const popularActorsURL = () =>
+  `https://api.themoviedb.org/3/person/popular?${api_key}&language=ru-RU&page=1`

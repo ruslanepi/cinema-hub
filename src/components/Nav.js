@@ -9,7 +9,10 @@ const Nav = () => {
         <Link to='/'>Главная</Link>
       </LinkWrapper>
       <LinkWrapper>
-        <Link to='profile'>Личный кабинет</Link>
+        <Link to='/profile'>Личный кабинет</Link>
+      </LinkWrapper>
+      <LinkWrapper>
+        <Link to='/actors'>Кино в лицах</Link>
       </LinkWrapper>
     </div>
   )

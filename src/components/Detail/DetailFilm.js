@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import DetailSlider from './DetailSlider'
 import { useDispatch } from 'react-redux'
-import { toggleDetail } from '../actions/filmsAction'
+import { toggleDetail } from '../../actions/filmsAction'
 
 const DetailFilm = () => {
   //проверяем загрузились ли данные
@@ -42,7 +42,9 @@ const DetailFilm = () => {
             <FilmContent>
               <div>{overview}</div>
             </FilmContent>
-            <DetailSlider />
+            <SliderWrapper>
+              <DetailSlider />
+            </SliderWrapper>
           </DetailWrapper>
         </Overlay>
       )}
@@ -74,11 +76,10 @@ const DetailWrapper = styled.div`
   position: absolute;
   width: 80%;
   left: 10%;
-  top: 5%;
-  bottom: 5%;
+  top: 10%;
+
   z-index: 10;
   background: #ccc;
-  overflow-y: scroll;
 `
 
 const FilmHeader = styled.div`
@@ -123,6 +124,11 @@ const FilmAttributes = styled.div`
 
 const FilmContent = styled.div`
   padding: 25px 50px;
+`
+
+const SliderWrapper = styled.div`
+  padding: 0px 50px;
+  height: 420px;
 `
 
 export default DetailFilm
