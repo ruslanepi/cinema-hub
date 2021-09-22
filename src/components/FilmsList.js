@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadFilms } from '../actions/filmsAction'
 import styled from 'styled-components'
+import DetailFilm from './DetailFilm'
 
 import Film from './Film'
 
@@ -32,14 +33,15 @@ const FilmsList = () => {
           <option value='53'>Триллер</option>
         </select>
       </SortPanel>
+
       <div>
         <FilmsWrapper>
+          <DetailFilm />
           {popularFilms.map((film) => {
             return <Film key={film.id} {...film} />
           })}
         </FilmsWrapper>
       </div>
-
       <div>
         <p>Топовые</p>
         {newFilms.map((film) => {

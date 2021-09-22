@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
-import { addFilm, loadFilms } from '../actions/filmsAction'
+import {
+  addFilm,
+  removeFilm,
+  getDetails,
+  toggleDetail,
+} from '../actions/filmsAction'
 
 const Film = (film) => {
   const { id, title, poster_path, vote_average, release_date } = film
@@ -29,12 +34,28 @@ const Film = (film) => {
     checkFilmInLibrary()
   }
 
+  const removeFilmFromLibrary = () => {
+    dispatch(removeFilm(id))
+    checkFilmInLibrary()
+  }
+
+  const filmDetailHandler = () => {
+    dispatch(getDetails(id))
+    dispatch(toggleDetail())
+  }
+
   return (
     <FilmWrapper>
-      <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt={title} />
+      <img
+        onClick={filmDetailHandler}
+        src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+        alt={title}
+      />
 
       <FilmBottomContent>
-        <div className='title'>{title}</div>
+        <div onClick={filmDetailHandler} className='title'>
+          {title}
+        </div>
         <FilmParameters>
           <div>Оценка: {vote_average} / 10</div> <div>{release_date}</div>
         </FilmParameters>
@@ -45,6 +66,8 @@ const Film = (film) => {
         >
           Добавить в библиотеку
         </button>
+
+        {disabled && <button onClick={removeFilmFromLibrary}>Удалить</button>}
       </FilmBottomContent>
     </FilmWrapper>
   )
@@ -56,6 +79,7 @@ const FilmWrapper = styled.article`
 
   img {
     width: 100%;
+    cursor: pointer;
   }
 `
 
@@ -67,6 +91,7 @@ const FilmBottomContent = styled.div`
     font-size: 18px;
     font-weight: 500;
     margin-bottom: 10px;
+    cursor: pointer;
   }
 
   button {

@@ -1,5 +1,10 @@
 import axios from 'axios'
-import { popularFilmsURL, newFilmsURL } from '../api'
+import {
+  popularFilmsURL,
+  newFilmsURL,
+  detailFilmURL,
+  screensFilmURL,
+} from '../api'
 
 export const loadFilms = (genre) => async (dispatch) => {
   //get data
@@ -26,5 +31,28 @@ export const removeFilm = (id) => (dispatch) => {
   dispatch({
     type: 'REMOVE_FILM',
     payload: id,
+  })
+}
+
+export const getDetails = (id) => async (dispatch) => {
+  dispatch({
+    type: 'LOADING_DETAIL',
+  })
+
+  const detailFilmData = await axios.get(detailFilmURL(id))
+  const screensFilmData = await axios.get(screensFilmURL(id))
+
+  dispatch({
+    type: 'GET_DETAIL',
+    payload: {
+      filmDetails: detailFilmData.data,
+      filmScreens: screensFilmData.data,
+    },
+  })
+}
+
+export const toggleDetail = () => (dispatch) => {
+  dispatch({
+    type: 'TOGGLE_DETAIL_VISIBLE',
   })
 }
