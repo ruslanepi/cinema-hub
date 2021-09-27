@@ -60,21 +60,22 @@ const Film = (film) => {
           <div>Оценка: {vote_average} / 10</div> <div>{release_date}</div>
         </FilmParameters>
 
-        <button
-          disabled={disabled ? 'disabled' : ''}
-          onClick={addToLibraryHandler}
-        >
-          Добавить в библиотеку
-        </button>
+        <div>
+          <button
+            disabled={disabled ? 'disabled' : ''}
+            onClick={addToLibraryHandler}
+          >
+            В избранное
+          </button>
 
-        {disabled && <button onClick={removeFilmFromLibrary}>Удалить</button>}
+          {disabled && <button onClick={removeFilmFromLibrary}>-</button>}
+        </div>
       </FilmBottomContent>
     </FilmWrapper>
   )
 }
 
 const FilmWrapper = styled.article`
-  max-width: 50%;
   padding: 15px;
 
   img {
@@ -84,11 +85,17 @@ const FilmWrapper = styled.article`
 `
 
 const FilmBottomContent = styled.div`
+  display: flex;
+
+  flex-direction: column;
+  justify-content: space-between;
+
   background: #fff;
   padding: 15px;
+  min-height: 180px;
 
   .title {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     margin-bottom: 10px;
     cursor: pointer;

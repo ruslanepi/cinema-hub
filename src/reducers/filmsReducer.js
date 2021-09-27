@@ -1,6 +1,7 @@
 const initState = {
   popularFilms: [],
   newFilms: [],
+  searchedFilm: null,
 }
 
 const filmsReducer = (state = initState, action) => {
@@ -11,6 +12,13 @@ const filmsReducer = (state = initState, action) => {
         popularFilms: action.payload.popularFilms,
         newFilms: action.payload.newFilms,
       }
+
+    case 'SEARCH_FILM':
+      return {
+        ...state,
+        searchedFilm: action.payload.searchedFilm,
+      }
+
     default:
       return { ...state }
   }

@@ -56,9 +56,8 @@ const Content = styled.article`
 `
 
 const FilmsWrapper = styled.article`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 `
 
 const SortPanel = styled.div`

@@ -31,13 +31,13 @@ function App() {
         </div>
         <Container className='main'>
           <Row>
-            <Col lg='2'>
+            {/* <Col lg='2'>
               <SidebarStyles>
                 <Sidebar />
               </SidebarStyles>
-            </Col>
+            </Col> */}
 
-            <Col lg='10'>
+            <Col lg='12'>
               <Switch>
                 <Route exact path='/'>
                   <FilmsList />

@@ -5,6 +5,7 @@ import {
   detailFilmURL,
   screensFilmURL,
   popularActorsURL,
+  searchFilmByNameURL,
 } from '../api'
 
 export const loadFilms = (genre) => async (dispatch) => {
@@ -65,6 +66,17 @@ export const loadActors = () => async (dispatch) => {
     type: 'FETCH_ACTORS',
     payload: {
       popularActors: popularActorsData.data,
+    },
+  })
+}
+
+export const searchFilm = () => async (dispatch) => {
+  const searchedFilm = await axios.get(searchFilmByNameURL())
+
+  dispatch({
+    type: 'SEARCH_FILM',
+    payload: {
+      searchedFilm: searchedFilm.data,
     },
   })
 }

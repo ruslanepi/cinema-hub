@@ -6,14 +6,18 @@ import LibraryFilm from './LibraryFilm'
 
 const Profile = () => {
   const { myLibrary } = useSelector((state) => state.library)
-  console.log(myLibrary)
-  return (
-    <FilmsWrapper>
-      {myLibrary.map((film) => {
-        return <LibraryFilm key={film.id} {...film} />
-      })}
-    </FilmsWrapper>
-  )
+
+  if (myLibrary) {
+    return <div>вы не добавили ни одного фильма в список</div>
+  } else {
+    return (
+      <FilmsWrapper>
+        {myLibrary.map((film) => {
+          return <LibraryFilm key={film.id} {...film} />
+        })}
+      </FilmsWrapper>
+    )
+  }
 }
 
 const FilmsWrapper = styled.article`

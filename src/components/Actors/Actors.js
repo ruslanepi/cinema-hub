@@ -8,7 +8,7 @@ import { loadActors } from '../../actions/filmsAction'
 const Actors = () => {
   const dispatch = useDispatch()
   const { popularActors } = useSelector((state) => state.actors)
-  console.log(popularActors)
+
   useEffect(() => {
     dispatch(loadActors())
   }, [])

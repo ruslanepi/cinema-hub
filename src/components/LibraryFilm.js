@@ -7,8 +7,6 @@ const LibraryFilm = (film) => {
   const { id, title, poster_path, vote_average, release_date } = film
   const dispatch = useDispatch()
 
-  const { myLibrary } = useSelector((state) => state.library)
-
   const removeFilmFromLibrary = () => {
     dispatch(removeFilm(id))
   }

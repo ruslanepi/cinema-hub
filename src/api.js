@@ -22,3 +22,7 @@ export const screensFilmURL = (id) =>
 
 export const popularActorsURL = () =>
   `https://api.themoviedb.org/3/person/popular?${api_key}&language=ru-RU&page=1`
+
+export const searchFilmByNameURL = (query) => `
+  https://api.themoviedb.org/3/search/movie?${api_key}&language=ru-RU&query=${query}&page=1
+  `

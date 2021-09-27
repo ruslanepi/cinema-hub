@@ -77,6 +77,7 @@ const DetailWrapper = styled.div`
   width: 80%;
   left: 10%;
   top: 10%;
+  max-width: 800px;
 
   z-index: 10;
   background: #ccc;
