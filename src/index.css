@@ -1,0 +1,4 @@
+@font-face {
+  font-family: 'Pulp Fiction', sans-serif;
+  src: local('Pulp Fiction'), url(./fonts/PulpFiction.ttf) format('truetype');
+}

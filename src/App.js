@@ -5,6 +5,7 @@ import Nav from './components/Nav'
 import Footer from './components/Footer'
 import Profile from './components/Profile'
 import Actors from './components/Actors/Actors'
+import SearchedList from './components/SearchedList'
 
 import styled from 'styled-components'
 import GlobalStyles from './components/GlobalStyles'
@@ -17,48 +18,40 @@ function App() {
     <div className='App'>
       <Router>
         <GlobalStyles />
-        <div className='header'>
-          <Container>
-            <Row>
-              <Col lg='2'>
-                <Logo />
-              </Col>
-              <Col lg='10'>
-                <Nav />
-              </Col>
-            </Row>
-          </Container>
-        </div>
-        <Container className='main'>
-          <Row>
-            {/* <Col lg='2'>
-              <SidebarStyles>
-                <Sidebar />
-              </SidebarStyles>
-            </Col> */}
+        <Header>
+          <Logo />
 
-            <Col lg='12'>
-              <Switch>
-                <Route exact path='/'>
-                  <FilmsList />
-                </Route>
-                <Route path='/profile'>
-                  <Profile />
-                </Route>
-                <Route path='/actors'>
-                  <Actors />
-                </Route>
-              </Switch>
-            </Col>
-          </Row>
-        </Container>
+          <Nav />
+        </Header>
+
+        <Switch>
+          <Route exact path='/'>
+            <FilmsList />
+          </Route>
+          <Route path='/search/:query'>
+            <SearchedList />
+          </Route>
+          <Route path='/profile'>
+            <Profile />
+          </Route>
+          <Route path='/actors'>
+            <Actors />
+          </Route>
+        </Switch>
       </Router>
     </div>
   )
 }
-const SidebarStyles = styled.div`
-  background: #ccc;
-  width: 100%;
+
+const Header = styled.aside`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 20vh;
+  padding: 15px;
+  margin-bottom: 15px;
+
+  background: #fbfbfb;
 `
 
 export default App

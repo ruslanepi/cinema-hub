@@ -70,13 +70,17 @@ export const loadActors = () => async (dispatch) => {
   })
 }
 
-export const searchFilm = () => async (dispatch) => {
-  const searchedFilm = await axios.get(searchFilmByNameURL())
+export const searchFilm = (query) => async (dispatch) => {
+  dispatch({
+    type: 'IS_SEARCHING',
+  })
+
+  const searchedFilmsData = await axios.get(searchFilmByNameURL(query))
 
   dispatch({
     type: 'SEARCH_FILM',
     payload: {
-      searchedFilm: searchedFilm.data,
+      searchedFilms: searchedFilmsData.data.results,
     },
   })
 }

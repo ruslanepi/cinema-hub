@@ -1,7 +1,11 @@
 import { createGlobalStyle } from 'styled-components'
 const GlobalStyles = createGlobalStyle`
 
+
+
+
 * {
+font-family: 'Alegreya Sans', sans-serif;
   margin: 0;
   padding: 0;
   box-sizing:border-box;
@@ -12,7 +16,7 @@ p {
 }
 
 .App {
- background-color: #e1e1e1;
+
 }
 
 .header {

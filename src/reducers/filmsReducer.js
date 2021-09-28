@@ -1,7 +1,8 @@
 const initState = {
   popularFilms: [],
   newFilms: [],
-  searchedFilm: null,
+  searchedFilms: [],
+  isSearching: false,
 }
 
 const filmsReducer = (state = initState, action) => {
@@ -16,7 +17,14 @@ const filmsReducer = (state = initState, action) => {
     case 'SEARCH_FILM':
       return {
         ...state,
-        searchedFilm: action.payload.searchedFilm,
+        searchedFilms: action.payload.searchedFilms,
+        isSearching: false,
+      }
+
+    case 'IS_SEARCHING':
+      return {
+        ...state,
+        isSearching: true,
       }
 
     default:
