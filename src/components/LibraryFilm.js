@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import { useDispatch, useSelector } from 'react-redux'
-import { removeFilm } from '../actions/filmsAction'
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { removeFilm } from "../actions/filmsAction";
 
 const LibraryFilm = (film) => {
-  const { id, title, poster_path, vote_average, release_date } = film
-  const dispatch = useDispatch()
+  const { id, title, poster_path, vote_average, release_date } = film;
+  const dispatch = useDispatch();
 
   const removeFilmFromLibrary = () => {
-    dispatch(removeFilm(id))
-  }
+    dispatch(removeFilm(id));
+  };
 
   return (
     <FilmWrapper>
       <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt={title} />
 
       <FilmBottomContent>
-        <div className='title'>{title}</div>
+        <div className="title">{title}</div>
         <FilmParameters>
           <div>Оценка: {vote_average} / 10</div> <div>{release_date}</div>
         </FilmParameters>
@@ -24,17 +24,14 @@ const LibraryFilm = (film) => {
         <button onClick={removeFilmFromLibrary}>Удалить из библиотеки</button>
       </FilmBottomContent>
     </FilmWrapper>
-  )
-}
+  );
+};
 
 const FilmWrapper = styled.article`
-  max-width: 50%;
-  padding: 15px;
-
   img {
     width: 100%;
   }
-`
+`;
 
 const FilmBottomContent = styled.div`
   background: #fff;
@@ -51,7 +48,7 @@ const FilmBottomContent = styled.div`
     border-radius: 4px;
     padding: 5px 15px;
   }
-`
+`;
 
 const FilmParameters = styled.div`
   display: flex;
@@ -59,6 +56,6 @@ const FilmParameters = styled.div`
   font-size: 14px;
   color: #555;
   margin-bottom: 15px;
-`
+`;
 
-export default LibraryFilm
+export default LibraryFilm;

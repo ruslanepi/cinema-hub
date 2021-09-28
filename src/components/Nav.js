@@ -1,48 +1,98 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import { searchFilm } from '../actions/filmsAction'
-import { useDispatch } from 'react-redux'
-import { useState } from 'react'
-import { useHistory } from 'react-router'
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { searchFilm } from "../actions/filmsAction";
+import { useDispatch } from "react-redux";
+
+import { useHistory } from "react-router";
+import burger from "../images/burger.png";
 
 const Nav = () => {
-  const history = useHistory()
-  const dispatch = useDispatch()
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-  const [searchValue, setSearchValue] = useState('')
-
+  const [searchValue, setSearchValue] = useState("");
+  const [activeMenu, setActiveMenu] = useState(false);
   const searchFormHandler = (e) => {
-    e.preventDefault()
-    dispatch(searchFilm(searchValue))
-    history.push(`/search/${searchValue}`)
-  }
+    e.preventDefault();
+    dispatch(searchFilm(searchValue));
+    history.push(`/search/${searchValue}`);
+  };
 
   return (
-    <div>
-      <LinkWrapper>
-        <Link to='/'>Главная</Link>
-      </LinkWrapper>
-      <LinkWrapper>
-        <Link to='/profile'>Личный кабинет</Link>
-      </LinkWrapper>
-      <LinkWrapper>
-        <Link to='/actors'>Кино в лицах</Link>
-      </LinkWrapper>
+    <NavMenu>
+      <NavWrapper
+        className={`${activeMenu ? "active" : ""} `}
+        onClick={() => setActiveMenu(false)}
+      >
+        <LinkWrapper>
+          <Link to="/">Новинки кино</Link>
+        </LinkWrapper>
+        <LinkWrapper>
+          <Link to="/profile">Мои фильмы</Link>
+        </LinkWrapper>
+        <LinkWrapper>
+          <Link to="/actors">Популярные актеры</Link>
+        </LinkWrapper>
 
-      <LinkWrapper>
-        <form onSubmit={(e) => searchFormHandler(e)}>
-          <input
-            type='text'
-            placeholder='Введите название'
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-          />
-        </form>
-      </LinkWrapper>
-    </div>
-  )
-}
+        <LinkWrapper>
+          <form onSubmit={(e) => searchFormHandler(e)}>
+            <input
+              type="text"
+              placeholder="Поиск по фильмам"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+          </form>
+        </LinkWrapper>
+      </NavWrapper>
+      <img
+        src={burger}
+        className={`${activeMenu ? "active" : ""} burger `}
+        onClick={() => setActiveMenu(!activeMenu)}
+        alt="burger"
+      />
+    </NavMenu>
+  );
+};
+
+const NavMenu = styled.div`
+  .burger {
+    width: 30px;
+    position: relative;
+
+    &.active {
+      transform: rotate(-60deg);
+    }
+  }
+`;
+
+const NavWrapper = styled.div`
+  @media (max-width: 767px) {
+    position: absolute;
+    left: 0;
+    top: 10vh;
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+
+    visibility: hidden;
+    opacity: 0;
+
+    background: #fff;
+    transition: all ease 0.3s;
+
+    &.active {
+      visibility: visible;
+      opacity: 1;
+      left: 0;
+      top: 15vh;
+      background: #fff;
+    }
+  }
+`;
 
 const LinkWrapper = styled.div`
   display: inline-block;
@@ -53,7 +103,7 @@ const LinkWrapper = styled.div`
   }
 
   a {
-    font-family: 'Russo One', sans-serif;
+    font-family: "Russo One", sans-serif;
     text-decoration: none;
     color: #464642;
   }
@@ -70,6 +120,6 @@ const LinkWrapper = styled.div`
       outline: none;
     }
   }
-`
+`;
 
-export default Nav
+export default Nav;

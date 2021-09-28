@@ -1,48 +1,48 @@
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addFilm,
   removeFilm,
   getDetails,
   toggleDetail,
-} from '../actions/filmsAction'
+} from "../actions/filmsAction";
 
 const Film = (film) => {
-  const { id, title, poster_path, vote_average, release_date } = film
-  const dispatch = useDispatch()
+  const { id, title, poster_path, vote_average, release_date } = film;
+  const dispatch = useDispatch();
 
-  const [disabled, setDisabled] = useState(false)
+  const [disabled, setDisabled] = useState(false);
 
-  const { myLibrary } = useSelector((state) => state.library)
+  const { myLibrary } = useSelector((state) => state.library);
 
   useEffect(() => {
-    checkFilmInLibrary()
-  })
+    checkFilmInLibrary();
+  });
 
   const checkFilmInLibrary = () => {
-    const checker = myLibrary.filter((item) => item.id === id)
+    const checker = myLibrary.filter((item) => item.id === id);
     if (checker.length > 0) {
-      setDisabled(true)
+      setDisabled(true);
     } else {
-      setDisabled(false)
+      setDisabled(false);
     }
-  }
+  };
 
   const addToLibraryHandler = () => {
-    dispatch(addFilm({ ...film }))
-    checkFilmInLibrary()
-  }
+    dispatch(addFilm({ ...film }));
+    checkFilmInLibrary();
+  };
 
   const removeFilmFromLibrary = () => {
-    dispatch(removeFilm(id))
-    checkFilmInLibrary()
-  }
+    dispatch(removeFilm(id));
+    checkFilmInLibrary();
+  };
 
   const filmDetailHandler = () => {
-    dispatch(getDetails(id))
-    dispatch(toggleDetail())
-  }
+    dispatch(getDetails(id));
+    dispatch(toggleDetail());
+  };
 
   return (
     <FilmWrapper>
@@ -53,7 +53,7 @@ const Film = (film) => {
       />
 
       <FilmBottomContent>
-        <div onClick={filmDetailHandler} className='title'>
+        <div onClick={filmDetailHandler} className="title">
           {title}
         </div>
         <FilmParameters>
@@ -62,7 +62,7 @@ const Film = (film) => {
 
         <div>
           <button
-            disabled={disabled ? 'disabled' : ''}
+            disabled={disabled ? "disabled" : ""}
             onClick={addToLibraryHandler}
           >
             В избранное
@@ -72,17 +72,15 @@ const Film = (film) => {
         </div>
       </FilmBottomContent>
     </FilmWrapper>
-  )
-}
+  );
+};
 
 const FilmWrapper = styled.article`
-  padding: 15px;
-
   img {
     width: 100%;
     cursor: pointer;
   }
-`
+`;
 
 const FilmBottomContent = styled.div`
   display: flex;
@@ -106,7 +104,7 @@ const FilmBottomContent = styled.div`
     border-radius: 4px;
     padding: 5px 15px;
   }
-`
+`;
 
 const FilmParameters = styled.div`
   display: flex;
@@ -114,6 +112,6 @@ const FilmParameters = styled.div`
   font-size: 14px;
   color: #555;
   margin-bottom: 15px;
-`
+`;
 
-export default Film
+export default Film;
