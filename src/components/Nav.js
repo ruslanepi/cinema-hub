@@ -58,11 +58,17 @@ const Nav = () => {
 
 const NavMenu = styled.div`
   .burger {
-    width: 30px;
-    position: relative;
+    display: none;
 
-    &.active {
-      transform: rotate(-60deg);
+    @media (max-width: 767px) {
+      display: block;
+      width: 30px;
+      position: relative;
+      transition: transform ease 0.3s;
+
+      &.active {
+        transform: rotate(-30deg);
+      }
     }
   }
 `;
@@ -119,6 +125,10 @@ const LinkWrapper = styled.div`
     &:focus {
       outline: none;
     }
+  }
+
+  @media (max-width: 767px) {
+    margin-bottom: 15px;
   }
 `;
 

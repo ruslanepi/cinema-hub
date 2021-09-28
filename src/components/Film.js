@@ -103,6 +103,12 @@ const FilmBottomContent = styled.div`
     border: none;
     border-radius: 4px;
     padding: 5px 15px;
+
+    @media (max-width: 767px) {
+      padding: 5px 10px;
+      font-size: 14px;
+      color: #585656;
+    }
   }
 `;
 
