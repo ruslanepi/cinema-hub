@@ -2,8 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import Sidebar from "./Sidebar";
-
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LibraryFilm from "./LibraryFilm";
+import LibraryDetailFilm from "./Library/LibraryDetailFilm";
 
 const Profile = () => {
   const { myLibrary } = useSelector((state) => state.library);
@@ -11,19 +12,26 @@ const Profile = () => {
   return (
     <ProfilePage>
       <Sidebar />
-      <ProfileContent>
-        {myLibrary && (
-          <FilmsWrapper>
-            {myLibrary.map((film) => {
-              return <LibraryFilm key={film.id} {...film} />;
-            })}
-          </FilmsWrapper>
-        )}
+      <Switch>
+        <Route path="/profile/:id">
+          <LibraryDetailFilm />
+        </Route>
+        <Route path="/profile">
+          <ProfileContent>
+            {myLibrary && (
+              <FilmsWrapper>
+                {myLibrary.map((film) => {
+                  return <LibraryFilm key={film.id} {...film} />;
+                })}
+              </FilmsWrapper>
+            )}
 
-        {myLibrary.length === 0 && (
-          <div>вы не добавили ни одного фильма в список</div>
-        )}
-      </ProfileContent>
+            {myLibrary.length === 0 && (
+              <div>вы не добавили ни одного фильма в список</div>
+            )}
+          </ProfileContent>
+        </Route>
+      </Switch>
     </ProfilePage>
   );
 };
@@ -33,6 +41,10 @@ const ProfilePage = styled.section`
   grid-template-columns: 2fr 7fr;
   gap: 15px;
   background: #fff;
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 const ProfileContent = styled.section`

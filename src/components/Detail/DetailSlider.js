@@ -1,53 +1,55 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { useSelector } from 'react-redux'
+import React, { useState } from "react";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const DetailSlider = () => {
-  const { backdrops } = useSelector((state) => state.details.filmScreens)
+  const { backdrops } = useSelector((state) => state.details.filmScreens);
 
-  const [activeSlider, setActiveSlider] = useState(0)
+  const [activeSlider, setActiveSlider] = useState(0);
 
   const slideHandler = (type) => {
-    if (type === 'prev') {
+    if (type === "prev") {
       if (activeSlider === 0) {
-        setActiveSlider(backdrops.length - 1)
+        setActiveSlider(backdrops.length - 1);
       } else {
-        setActiveSlider(activeSlider - 1)
+        setActiveSlider(activeSlider - 1);
       }
     }
-    if (type === 'next') {
+    if (type === "next") {
       if (activeSlider === backdrops.length - 1) {
-        setActiveSlider(0)
+        setActiveSlider(0);
       } else {
-        setActiveSlider(activeSlider + 1)
+        setActiveSlider(activeSlider + 1);
       }
     }
-  }
+  };
 
   return (
     <Slider>
-      <button className='prev-btn' onClick={() => slideHandler('prev')}>
+      <button className="prev-btn" onClick={() => slideHandler("prev")}>
         <span>«</span>
       </button>
-      <button className='next-btn' onClick={() => slideHandler('next')}>
+      <button className="next-btn" onClick={() => slideHandler("next")}>
         <span>»</span>
       </button>
       {backdrops.map((image, index) => {
         return (
           <img
-            className={activeSlider === index ? 'active' : ''}
+            className={activeSlider === index ? "active" : ""}
             id={index}
             key={image.file_path}
             src={`https://image.tmdb.org/t/p/w500${image.file_path}`}
+            alt="img"
           />
-        )
+        );
       })}
     </Slider>
-  )
-}
+  );
+};
 
 const Slider = styled.div`
   position: relative;
+  width: 100%;
 
   img {
     position: absolute;
@@ -63,7 +65,7 @@ const Slider = styled.div`
   button {
     position: absolute;
     z-index: 11;
-    top: 180px;
+    top: 120px;
     width: 40px;
     height: 40px;
 
@@ -101,6 +103,6 @@ const Slider = styled.div`
       right: -23px;
     }
   }
-`
+`;
 
-export default DetailSlider
+export default DetailSlider;

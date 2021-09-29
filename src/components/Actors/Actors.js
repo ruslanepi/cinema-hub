@@ -11,7 +11,7 @@ const Actors = () => {
 
   useEffect(() => {
     dispatch(loadActors());
-  }, []);
+  }, [dispatch]);
 
   return (
     <ActorsWrapper>

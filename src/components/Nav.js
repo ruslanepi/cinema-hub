@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, BrowserRouter as Router } from "react-router-dom";
 import { searchFilm } from "../actions/filmsAction";
 import { useDispatch } from "react-redux";
 

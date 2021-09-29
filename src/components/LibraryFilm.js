@@ -3,27 +3,35 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFilm } from "../actions/filmsAction";
 
+import { NavLink } from "react-router-dom";
+
 const LibraryFilm = (film) => {
   const { id, title, poster_path, vote_average, release_date } = film;
   const dispatch = useDispatch();
 
-  const removeFilmFromLibrary = () => {
+  const removeFilmFromLibrary = (e) => {
+    e.preventDefault();
     dispatch(removeFilm(id));
   };
 
   return (
-    <FilmWrapper>
-      <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt={title} />
+    <NavLink to={`/profile/${id}`}>
+      <FilmWrapper>
+        <img
+          src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+          alt={title}
+        />
 
-      <FilmBottomContent>
-        <div className="title">{title}</div>
-        <FilmParameters>
-          <div>Оценка: {vote_average} / 10</div> <div>{release_date}</div>
-        </FilmParameters>
+        <FilmBottomContent>
+          <div className="title">{title}</div>
+          <FilmParameters>
+            <div>Оценка: {vote_average} / 10</div> <div>{release_date}</div>
+          </FilmParameters>
 
-        <button onClick={removeFilmFromLibrary}>Удалить из библиотеки</button>
-      </FilmBottomContent>
-    </FilmWrapper>
+          <button onClick={removeFilmFromLibrary}>Удалить из библиотеки</button>
+        </FilmBottomContent>
+      </FilmWrapper>
+    </NavLink>
   );
 };
 

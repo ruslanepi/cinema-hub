@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadFilms } from "../actions/filmsAction";
 import styled from "styled-components";
@@ -12,7 +12,7 @@ const FilmsList = () => {
 
   useEffect(() => {
     dispatch(loadFilms(28));
-  }, []);
+  }, [dispatch]);
 
   const filterHandler = (e) => {
     dispatch(loadFilms(e.target.value));
