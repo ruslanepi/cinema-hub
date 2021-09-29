@@ -1,26 +1,31 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import profileLogo from '../images/logo-profile2.png'
+import { useSelector } from 'react-redux'
 
 const Sidebar = () => {
+  const { myLibrary } = useSelector((state) => state.library)
+  const { wishList } = useSelector((state) => state.wishlist)
+
   return (
     <SidebarWrapper>
       <ProfileWrapper>
-        <img src={profileLogo} alt='' />
+        <img src={profileLogo} alt='logo' />
 
         <div className='nickname'>Ruslan Epishin</div>
       </ProfileWrapper>
 
       <NavWrapper>
-        <a href='/' className='button'>
-          Жду выхода (6)
-        </a>
-        <a href='/' className='button'>
-          Просмотренное (2)
-        </a>
-        <a href='/' className='button'>
+        <Link to='/profile/wishlist' className='button'>
+          Жду выхода ({wishList.length})
+        </Link>
+        <Link to='/profile' className='button'>
+          Просмотренное ({myLibrary.length})
+        </Link>
+        <Link to='/2ishlist' className='button'>
           Ожидает отзыва (1)
-        </a>
+        </Link>
       </NavWrapper>
     </SidebarWrapper>
   )

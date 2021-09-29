@@ -84,3 +84,10 @@ export const searchFilm = (query) => async (dispatch) => {
     },
   })
 }
+
+export const addFilmToWishList = (film) => (dispatch) => {
+  dispatch({
+    type: 'ADD_TO_WISHLIST',
+    payload: film,
+  })
+}
