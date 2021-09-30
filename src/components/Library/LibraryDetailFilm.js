@@ -28,6 +28,10 @@ const LibraryDetailFilm = () => {
           <div>Бюджет {budget}</div>
           <div>Оценка: {vote_average} / 10</div>
           <p>{overview}</p>
+          <form className>
+            <textarea rows="8"></textarea>
+            <button>Оставить отзыв</button>
+          </form>
           <SliderWrapper>
             <DetailSlider />
           </SliderWrapper>
