@@ -18,6 +18,12 @@ const Film = (film) => {
   const [filledStar, setFilledStar] = useState(false)
 
   const { myLibrary } = useSelector((state) => state.library)
+  const currentFilm = myLibrary.find((item) => item.id === id)
+
+  let currentFilmFilled = {}
+  if (currentFilm) {
+    currentFilmFilled = currentFilm
+  }
 
   useEffect(() => {
     checkFilmInLibrary()
@@ -49,11 +55,19 @@ const Film = (film) => {
 
   return (
     <FilmWrapper>
-      <img
-        onClick={filmDetailHandler}
-        src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-        alt={title}
-      />
+      <FilmTopContent>
+        <img
+          onClick={filmDetailHandler}
+          src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+          alt={title}
+          className={currentFilmFilled.status === 'reviewed' ? 'watched' : ''}
+        />
+        {currentFilmFilled.voteRating ? (
+          <div className='vote-rating'>{currentFilmFilled.voteRating}/10</div>
+        ) : (
+          ''
+        )}
+      </FilmTopContent>
 
       <ButtonBlock>
         <TitleButton
@@ -94,6 +108,25 @@ const FilmWrapper = styled.article`
     cursor: pointer;
     border-radius: 25px 25px 0px 0px;
   }
+  img.watched {
+    opacity: 0.7;
+  }
+`
+
+const FilmTopContent = styled.article`
+  position: relative;
+
+  .vote-rating {
+    position: absolute;
+    bottom: 6px;
+    left: 11px;
+    color: #ffffff;
+    font-size: 46px;
+    z-index: 9;
+    font-family: 'Russo One', sans-serif;
+    letter-spacing: 1px;
+    line-height: 39px;
+  }
 `
 
 const ButtonBlock = styled.div`
@@ -115,12 +148,12 @@ const ButtonBlock = styled.div`
       right: 30px;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 767px) {
       right: 45px;
     }
   }
 
-  @media (max-width: 1200px) {
+  @media (max-width: 767px) {
     right: 15px;
     top: 15px;
 
@@ -151,7 +184,7 @@ const TitleButton = styled.div`
     font-size: 16px;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     padding: 6px 16px;
     font-size: 18px;
   }
@@ -184,7 +217,7 @@ const IconButton = styled.button`
       font-size: 28px;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 767px) {
       font-size: 28px;
     }
   }
@@ -195,7 +228,7 @@ const IconButton = styled.button`
     font-size: 16px;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     height: 44px;
     width: 44px;
     font-size: 18px;

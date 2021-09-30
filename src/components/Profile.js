@@ -1,26 +1,28 @@
-import React from "react";
-import styled from "styled-components";
-import { useSelector } from "react-redux";
-import Sidebar from "./Sidebar";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import LibraryFilm from "./LibraryFilm";
-import LibraryDetailFilm from "./Library/LibraryDetailFilm";
-import WishFilm from "./WishList/WishFilm";
+import React from 'react'
+import styled from 'styled-components'
+import { useSelector } from 'react-redux'
+import Sidebar from './Sidebar'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import LibraryFilm from './LibraryFilm'
+import LibraryDetailFilm from './Library/LibraryDetailFilm'
+import ReviewedFilm from './ReviewedFilm'
 
 const Profile = () => {
-  const { myLibrary } = useSelector((state) => state.library);
-  const filmsToWatch = myLibrary.filter(item => item.status === 'want')
+  const { myLibrary } = useSelector((state) => state.library)
+  const filmsToWatch = myLibrary.filter((item) => item.status === 'want')
+  const filmsToReview = myLibrary.filter((item) => item.status === 'watched')
+  const filmsReviews = myLibrary.filter((item) => item.status === 'reviewed')
 
   return (
     <ProfilePage>
       <Sidebar />
       <Switch>
-        <Route path="/profile/wishlist">
+        <Route path='/profile/wishlist'>
           <ProfileContent>
             {filmsToWatch && (
               <FilmsWrapper>
                 {filmsToWatch.map((film) => {
-                  return <LibraryFilm key={film.id} {...film} />;
+                  return <LibraryFilm key={film.id} {...film} />
                 })}
               </FilmsWrapper>
             )}
@@ -31,16 +33,48 @@ const Profile = () => {
           </ProfileContent>
         </Route>
 
-        <Route path="/profile/:id">
+        <Route path='/profile/to-review'>
+          <ProfileContent>
+            {filmsToReview && (
+              <FilmsWrapper>
+                {filmsToReview.map((film) => {
+                  return <LibraryFilm key={film.id} {...film} />
+                })}
+              </FilmsWrapper>
+            )}
+
+            {filmsToReview.length === 0 && (
+              <div>вы не добавили ни одного фильма в список ЖЕЛАЕМОГО</div>
+            )}
+          </ProfileContent>
+        </Route>
+
+        <Route path='/profile/reviews'>
+          <ProfileContent>
+            {filmsReviews && (
+              <FilmsWrapperReview>
+                {filmsReviews.map((film) => {
+                  return <ReviewedFilm key={film.id} {...film} />
+                })}
+              </FilmsWrapperReview>
+            )}
+
+            {filmsReviews.length === 0 && (
+              <div>вы не оставили ни одного отзыва</div>
+            )}
+          </ProfileContent>
+        </Route>
+
+        <Route path='/profile/:id'>
           <LibraryDetailFilm />
         </Route>
 
-        <Route path="/profile">
+        <Route path='/profile'>
           <ProfileContent>
             {myLibrary && (
               <FilmsWrapper>
                 {myLibrary.map((film) => {
-                  return <LibraryFilm key={film.id} {...film} />;
+                  return <LibraryFilm key={film.id} {...film} />
                 })}
               </FilmsWrapper>
             )}
@@ -52,8 +86,8 @@ const Profile = () => {
         </Route>
       </Switch>
     </ProfilePage>
-  );
-};
+  )
+}
 
 const ProfilePage = styled.section`
   display: grid;
@@ -64,19 +98,24 @@ const ProfilePage = styled.section`
   a {
     text-decoration: none;
   }
-`;
+`
 
 const ProfileContent = styled.section`
   padding: 15px 25px;
 
   background: #fbfbfb;
   border-radius: 5px;
-`;
+`
 
 const FilmsWrapper = styled.article`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 15px;
-`;
+`
 
-export default Profile;
+const FilmsWrapperReview = styled.article`
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+`
+
+export default Profile

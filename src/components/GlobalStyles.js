@@ -5,7 +5,7 @@ const GlobalStyles = createGlobalStyle`
 
 
 * {
-font-family: 'Alegreya Sans', sans-serif;
+
   margin: 0;
   padding: 0;
   box-sizing:border-box;

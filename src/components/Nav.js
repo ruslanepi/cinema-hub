@@ -85,7 +85,7 @@ const LogoImg = styled.div`
   .logo {
     font-family: 'Russo One', sans-serif;
     font-size: 24px;
-    color: #c54da0;
+    color: #33727b;
   }
 `
 
