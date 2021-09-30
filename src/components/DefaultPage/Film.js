@@ -1,51 +1,51 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   addFilm,
   removeFilm,
   getDetails,
   toggleDetail,
-} from "../../actions/filmsAction";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+} from '../../actions/filmsAction'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 const Film = (film) => {
-  const { id, title, poster_path, vote_average, release_date } = film;
-  const dispatch = useDispatch();
+  const { id, title, poster_path, vote_average, release_date } = film
+  const dispatch = useDispatch()
 
-  const [disabled, setDisabled] = useState(false);
-  const [filledStar, setFilledStar] = useState(false);
+  const [disabled, setDisabled] = useState(false)
+  const [filledStar, setFilledStar] = useState(false)
 
-  const { myLibrary } = useSelector((state) => state.library);
+  const { myLibrary } = useSelector((state) => state.library)
 
   useEffect(() => {
-    checkFilmInLibrary();
-  });
+    checkFilmInLibrary()
+  })
 
   const LibraryHandler = () => {
     if (checkFilmInLibrary()) {
-      dispatch(removeFilm(id));
+      dispatch(removeFilm(id))
     } else {
-      dispatch(addFilm({ ...film }));
+      dispatch(addFilm({ ...film }))
     }
-  };
+  }
 
   const checkFilmInLibrary = () => {
-    const checker = myLibrary.filter((item) => item.id === id);
+    const checker = myLibrary.filter((item) => item.id === id)
     if (checker.length > 0) {
-      setFilledStar(true);
-      return true;
+      setFilledStar(true)
+      return true
     } else {
-      setFilledStar(false);
-      return false;
+      setFilledStar(false)
+      return false
     }
-  };
+  }
 
   const filmDetailHandler = () => {
-    dispatch(getDetails(id));
-    dispatch(toggleDetail());
-  };
+    dispatch(getDetails(id))
+    dispatch(toggleDetail())
+  }
 
   return (
     <FilmWrapper>
@@ -57,17 +57,17 @@ const Film = (film) => {
 
       <ButtonBlock>
         <TitleButton
-          className={filledStar ? " title-button" : "active title-button"}
+          className={filledStar ? ' title-button' : 'active title-button'}
         >
           Добавить в библиотеку
         </TitleButton>
         <TitleButton
-          className={filledStar ? "active title-button" : "title-button"}
+          className={filledStar ? 'active title-button' : 'title-button'}
         >
           Убрать из библиотеки
         </TitleButton>
         <IconButton
-          className={filledStar ? "active" : ""}
+          className={filledStar ? 'active' : ''}
           onClick={LibraryHandler}
         >
           <FontAwesomeIcon icon={faStar} />
@@ -75,7 +75,7 @@ const Film = (film) => {
       </ButtonBlock>
 
       <FilmBottomContent>
-        <div onClick={filmDetailHandler} className="title">
+        <div onClick={filmDetailHandler} className='title'>
           {title}
         </div>
         <FilmParameters>
@@ -83,8 +83,8 @@ const Film = (film) => {
         </FilmParameters>
       </FilmBottomContent>
     </FilmWrapper>
-  );
-};
+  )
+}
 
 const FilmWrapper = styled.article`
   position: relative;
@@ -94,7 +94,7 @@ const FilmWrapper = styled.article`
     cursor: pointer;
     border-radius: 25px 25px 0px 0px;
   }
-`;
+`
 
 const ButtonBlock = styled.div`
   position: absolute;
@@ -110,8 +110,27 @@ const ButtonBlock = styled.div`
     right: 50px;
     opacity: 1;
     visibility: visible;
+
+    @media (max-width: 1200px) {
+      right: 30px;
+    }
+
+    @media (max-width: 768px) {
+      right: 45px;
+    }
   }
-`;
+
+  @media (max-width: 1200px) {
+    right: 15px;
+    top: 15px;
+
+    & .title-button.active {
+      right: 40px;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+`
 
 const TitleButton = styled.div`
   transition: all ease 0.3s;
@@ -123,11 +142,20 @@ const TitleButton = styled.div`
   margin-right: 15px;
   padding: 7px 20px;
 
-  font-size: 14px;
+  font-size: 16px;
 
   border-radius: 20px;
   background: #fffffff0;
-`;
+  @media (max-width: 1200px) {
+    padding: 6px 14px;
+    font-size: 16px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 6px 16px;
+    font-size: 18px;
+  }
+`
 
 const IconButton = styled.button`
   height: 50px;
@@ -151,8 +179,28 @@ const IconButton = styled.button`
     color: #ffc626;
     box-shadow: none;
     font-size: 32px;
+
+    @media (max-width: 1200px) {
+      font-size: 28px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 28px;
+    }
   }
-`;
+
+  @media (max-width: 1200px) {
+    height: 40px;
+    width: 40px;
+    font-size: 16px;
+  }
+
+  @media (max-width: 768px) {
+    height: 44px;
+    width: 44px;
+    font-size: 18px;
+  }
+`
 
 const FilmBottomContent = styled.div`
   display: flex;
@@ -195,7 +243,7 @@ const FilmBottomContent = styled.div`
       color: #585656;
     }
   }
-`;
+`
 
 const FilmParameters = styled.div`
   display: flex;
@@ -203,6 +251,6 @@ const FilmParameters = styled.div`
   font-size: 14px;
   color: #555;
   margin-bottom: 15px;
-`;
+`
 
-export default Film;
+export default Film

@@ -60,14 +60,19 @@ const FilmsWrapper = styled.div`
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 15px;
 
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   @media (max-width: 767px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 `
 
 const SortPanel = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
 
   margin-bottom: 20px;
@@ -76,17 +81,26 @@ const SortPanel = styled.div`
     font-size: 22px;
     line-height: 150%;
     margin-right: 30px;
+    font-family: 'Russo One', sans-serif;
 
     @media (max-width: 767px) {
       font-size: 16px;
+      margin-right: 0px;
     }
   }
 
   select {
-    padding: 5px 15px;
+    padding: 8px 16px;
     border: none;
     border-radius: 10px;
     outline: none;
+    background: #f1f1f1;
+    color: #0c0c0c;
+    font-family: 'Russo One', sans-serif;
+
+    @media (max-width: 767px) {
+      padding: 5px 10px;
+    }
   }
 `
 

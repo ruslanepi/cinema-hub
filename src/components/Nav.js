@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { searchFilm } from '../actions/filmsAction'
 import { useDispatch } from 'react-redux'
 
+import logo from '../images/logo-profile3.png'
 import { useHistory } from 'react-router'
 import burger from '../images/burger.png'
 
@@ -15,46 +16,78 @@ const Nav = () => {
   const [activeMenu, setActiveMenu] = useState(false)
   const searchFormHandler = (e) => {
     e.preventDefault()
+    setActiveMenu(false)
     dispatch(searchFilm(searchValue))
     history.push(`/search/${searchValue}`)
   }
 
   return (
-    <NavMenu>
-      <NavWrapper
-        className={`${activeMenu ? 'active' : ''} `}
-        onClick={() => setActiveMenu(false)}
-      >
-        <LinkWrapper>
-          <Link to='/'>Новинки кино</Link>
-        </LinkWrapper>
-        <LinkWrapper>
-          <Link to='/profile'>Мои фильмы</Link>
-        </LinkWrapper>
-        <LinkWrapper>
-          <Link to='/actors'>Популярные актеры</Link>
-        </LinkWrapper>
+    <>
+      <LogoWrapper onClick={() => setActiveMenu(false)}>
+        <Link to='/'>
+          <LogoImg>
+            <img src={logo} alt='' />
+            <div className='logo'>Cinema-Hub</div>
+          </LogoImg>
+        </Link>
+      </LogoWrapper>
 
-        <LinkWrapper>
-          <form onSubmit={(e) => searchFormHandler(e)}>
-            <input
-              type='text'
-              placeholder='Поиск по фильмам'
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-            />
-          </form>
-        </LinkWrapper>
-      </NavWrapper>
-      <img
-        src={burger}
-        className={`${activeMenu ? 'active' : ''} burger `}
-        onClick={() => setActiveMenu(!activeMenu)}
-        alt='burger'
-      />
-    </NavMenu>
+      <NavMenu>
+        <NavWrapper className={`${activeMenu ? 'active' : ''} `}>
+          <LinkWrapper onClick={() => setActiveMenu(false)}>
+            <Link to='/'>Новинки кино</Link>
+          </LinkWrapper>
+          <LinkWrapper onClick={() => setActiveMenu(false)}>
+            <Link to='/profile'>Мои фильмы</Link>
+          </LinkWrapper>
+          <LinkWrapper onClick={() => setActiveMenu(false)}>
+            <Link to='/actors'>Популярные актеры</Link>
+          </LinkWrapper>
+
+          <LinkWrapper>
+            <form onSubmit={(e) => searchFormHandler(e)}>
+              <input
+                type='text'
+                placeholder='Поиск по фильмам'
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+              />
+            </form>
+          </LinkWrapper>
+        </NavWrapper>
+        <img
+          src={burger}
+          className={`${activeMenu ? 'active' : ''} burger `}
+          onClick={() => setActiveMenu(!activeMenu)}
+          alt='burger'
+        />
+      </NavMenu>
+    </>
   )
 }
+
+const LogoWrapper = styled.div`
+  a {
+    display: block;
+    text-decoration: none;
+  }
+`
+
+const LogoImg = styled.div`
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 55px;
+    margin-right: 20px;
+  }
+
+  .logo {
+    font-family: 'Russo One', sans-serif;
+    font-size: 24px;
+    color: #c54da0;
+  }
+`
 
 const NavMenu = styled.div`
   .burger {
@@ -77,7 +110,7 @@ const NavWrapper = styled.div`
   @media (max-width: 767px) {
     position: absolute;
     left: 0;
-    top: 10vh;
+    top: 0vh;
 
     display: flex;
     flex-direction: column;
@@ -94,8 +127,9 @@ const NavWrapper = styled.div`
       visibility: visible;
       opacity: 1;
       left: 0;
-      top: 15vh;
+      top: 12vh;
       background: #fff;
+      z-index: 99;
     }
   }
 `
