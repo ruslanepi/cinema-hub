@@ -26,8 +26,7 @@ const DetailSlider = () => {
 
   return (
     <Slider>
-      {backdrops.map((image, index) => {
-        return (
+      {backdrops.map((image, index) => 
           <div
             className={activeSlider === index ? 'active image1' : 'image1'}
             style={{
@@ -38,8 +37,7 @@ const DetailSlider = () => {
             id={index}
             key={image.file_path}
           ></div>
-        )
-      })}
+          )}
       <button className='prev-btn' onClick={() => slideHandler('prev')}>
         <span>«</span>
       </button>

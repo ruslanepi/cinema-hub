@@ -21,9 +21,7 @@ const Profile = () => {
           <ProfileContent>
             {filmsToWatch && (
               <FilmsWrapper>
-                {filmsToWatch.map((film) => {
-                  return <LibraryFilm key={film.id} {...film} />
-                })}
+                {filmsToWatch.map((film) => <LibraryFilm key={film.id} {...film} />)}
               </FilmsWrapper>
             )}
 
@@ -37,9 +35,7 @@ const Profile = () => {
           <ProfileContent>
             {filmsToReview && (
               <FilmsWrapper>
-                {filmsToReview.map((film) => {
-                  return <LibraryFilm key={film.id} {...film} />
-                })}
+                {filmsToReview.map((film) => <LibraryFilm key={film.id} {...film} />)}
               </FilmsWrapper>
             )}
 
@@ -53,9 +49,7 @@ const Profile = () => {
           <ProfileContent>
             {filmsReviews && (
               <FilmsWrapperReview>
-                {filmsReviews.map((film) => {
-                  return <ReviewedFilm key={film.id} {...film} />
-                })}
+                {filmsReviews.map((film) => <ReviewedFilm key={film.id} {...film} />)}
               </FilmsWrapperReview>
             )}
 
@@ -73,9 +67,7 @@ const Profile = () => {
           <ProfileContent>
             {myLibrary && (
               <FilmsWrapper>
-                {myLibrary.map((film) => {
-                  return <LibraryFilm key={film.id} {...film} />
-                })}
+                {myLibrary.map((film) => <LibraryFilm key={film.id} {...film} />)}
               </FilmsWrapper>
             )}
 

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { searchFilm } from '../actions/filmsAction'
 import { useDispatch } from 'react-redux'
+import classNames from 'classnames'
 
 import logo from '../images/logo-profile3.png'
 import { useHistory } from 'react-router'
@@ -14,34 +15,51 @@ const Nav = () => {
 
   const [searchValue, setSearchValue] = useState('')
   const [activeMenu, setActiveMenu] = useState(false)
+
+
+useEffect(()=> {
+   setActiveMenu(false)
+}, [])
+
   const searchFormHandler = (e) => {
     e.preventDefault()
     setActiveMenu(false)
     dispatch(searchFilm(searchValue))
+    setSearchValue('')
     history.push(`/search/${searchValue}`)
   }
+
+
+
+  //classNames
+  const burgerClasses = classNames({
+      'burger': true,
+      'active': activeMenu
+    });
+  const menuClasses = classNames({'active': activeMenu})
+  const activeMenuClass =  { color: 'red'}
 
   return (
     <>
       <LogoWrapper onClick={() => setActiveMenu(false)}>
-        <Link to='/'>
+        <NavLink to='/'>
           <LogoImg>
             <img src={logo} alt='' />
             <div className='logo'>Cinema-Hub</div>
           </LogoImg>
-        </Link>
+        </NavLink>
       </LogoWrapper>
 
       <NavMenu>
-        <NavWrapper className={`${activeMenu ? 'active' : ''} `}>
+        <NavWrapper className={menuClasses}>
           <LinkWrapper onClick={() => setActiveMenu(false)}>
-            <Link to='/'>Новинки кино</Link>
+            <NavLink activeStyle={activeMenuClass} exact to='/'>Новинки</NavLink>
           </LinkWrapper>
           <LinkWrapper onClick={() => setActiveMenu(false)}>
-            <Link to='/profile'>Мои фильмы</Link>
+            <NavLink activeStyle={activeMenuClass} to='/profile'>Мои фильмы</NavLink>
           </LinkWrapper>
           <LinkWrapper onClick={() => setActiveMenu(false)}>
-            <Link to='/actors'>Популярные актеры</Link>
+            <NavLink activeStyle={activeMenuClass}  to='/actors'>Актеры</NavLink>
           </LinkWrapper>
 
           <LinkWrapper>
@@ -57,7 +75,7 @@ const Nav = () => {
         </NavWrapper>
         <img
           src={burger}
-          className={`${activeMenu ? 'active' : ''} burger `}
+          className={burgerClasses}
           onClick={() => setActiveMenu(!activeMenu)}
           alt='burger'
         />

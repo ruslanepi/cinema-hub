@@ -9,9 +9,7 @@ import { NavLink } from 'react-router-dom'
 
 const ReviewedFilm = (film) => {
   const { id, title, poster_path, vote_average, release_date } = film
-
   const { myLibrary } = useSelector((state) => state.library)
-
   const currentFilm = myLibrary.find((item) => item.id === id)
 
   const dispatch = useDispatch()

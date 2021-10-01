@@ -10,7 +10,6 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 const DetailFilm = () => {
   //проверяем загрузились ли данные
   const { isLoading, isShow } = useSelector((state) => state.details)
-
   const dispatch = useDispatch()
 
   // получаем данные
@@ -44,9 +43,7 @@ const DetailFilm = () => {
                 <span class='votes'>Оценка: {vote_average} / 10</span>
                 <div class='genres'>
                   <ul>
-                    {genres.map((genre) => {
-                      return <li key={genre.id}>{genre.name}</li>
-                    })}
+                    {genres.map((genre) => <li key={genre.id}>{genre.name}</li>)}
                   </ul>
                 </div>
               </FilmAttributes>

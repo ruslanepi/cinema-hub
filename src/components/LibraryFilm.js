@@ -16,16 +16,16 @@ import {
   changeStatusWant,
 } from '../actions/filmsAction'
 
+import classNames from 'classnames'
+
 import { NavLink } from 'react-router-dom'
 
 const LibraryFilm = (film) => {
   const { id, title, poster_path, vote_average, release_date } = film
-
   const { myLibrary } = useSelector((state) => state.library)
-
+   const dispatch = useDispatch()
   const currentFilm = myLibrary.find((item) => item.id === id)
 
-  const dispatch = useDispatch()
 
   const removeFilmFromLibrary = (e) => {
     dispatch(removeFilm(id))
@@ -38,6 +38,30 @@ const LibraryFilm = (film) => {
   const changeStatusWantHandler = () => {
     dispatch(changeStatusWant(id))
   }
+
+
+  const watchedButton = classNames({
+    'button': true,
+    'selected' : currentFilm.status === 'watched',
+  })
+
+  const wantButton = classNames({
+    'button': true,
+    'selected' : currentFilm.status === 'want',
+  })
+
+  const voteButton = classNames({
+    'button': true,
+   'disable': currentFilm.status !== 'watched'
+  })
+
+  const watchedFilm = classNames({
+
+    'watched': currentFilm.status === 'reviewed'
+  })
+
+
+   
 
   return (
     <FilmWrapper>
@@ -60,7 +84,7 @@ const LibraryFilm = (film) => {
           <img
             src={`https://image.tmdb.org/t/p/w500${poster_path}`}
             alt={title}
-            className={currentFilm.status === 'reviewed' ? 'watched' : ''}
+            className={watchedFilm}
           />
         </NavLink>
         {currentFilm.status === 'reviewed' ? (
@@ -68,28 +92,20 @@ const LibraryFilm = (film) => {
         ) : (
           <div className='toggler'>
             <div
-              className={`${
-                currentFilm.status === 'want' ? 'button selected' : 'button'
-              }`}
+              className={wantButton}
               onClick={(e) => changeStatusWantHandler(e)}
             >
               <FontAwesomeIcon className='icon' icon={faPlay} /> Хочу посмотреть
-            </div>
+            </div> 
             <div
-              className={`${
-                currentFilm.status === 'watched' ? 'button selected' : 'button'
-              }`}
+              className={watchedButton}
               onClick={(e) => changeStatusWatchedHandler(e)}
             >
               <FontAwesomeIcon className='icon' icon={faCheck} /> Просмотрено
             </div>
             <NavLink to={`/profile/${id}`}>
               <div
-                className={`${
-                  currentFilm.status === 'watched'
-                    ? 'button '
-                    : 'button disable'
-                }`}
+                className={voteButton}
               >
                 <FontAwesomeIcon className='icon' icon={faStarHalfAlt} />{' '}
                 Оценить

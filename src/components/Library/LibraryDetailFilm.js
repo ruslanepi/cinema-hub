@@ -56,15 +56,12 @@ const LibraryDetailFilm = () => {
             </ButtonsWrapper>
           </form>
           <GalleryWrapper>
-            {backdrops.map((image, index) => {
-              return (
-                <img
+            {backdrops.map((image, index) => <img
                   src={`https://image.tmdb.org/t/p/w500${image.file_path}`}
                   id={index}
                   key={image.file_path}
                 ></img>
-              )
-            })}
+                 )}
           </GalleryWrapper>
         </FilmWrapper>
       )}

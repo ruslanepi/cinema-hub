@@ -19,7 +19,7 @@ const FilmsList = () => {
   }
 
   return (
-    <Content>
+    <section>
       <SortPanel>
         <p className='title'>Популярные сейчас:</p>
         <select onChange={filterHandler}>
@@ -35,25 +35,20 @@ const FilmsList = () => {
 
       <FilmsWrapper>
         <DetailFilm />
-        {popularFilms.map((film) => {
-          return <Film key={film.id} {...film} />
-        })}
+        {popularFilms.map((film) => <Film key={film.id} {...film} />)}
       </FilmsWrapper>
       <hr />
       <div>
         <p>Скоро выйдут</p>
         <FilmsWrapper>
           <DetailFilm />
-          {newFilms.map((film) => {
-            return <Film key={film.id} {...film} />
-          })}
+          {newFilms.map((film) => <Film key={film.id} {...film} />)}
         </FilmsWrapper>
       </div>
-    </Content>
+    </section>
   )
 }
 
-const Content = styled.section``
 
 const FilmsWrapper = styled.div`
   display: grid;

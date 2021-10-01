@@ -12,9 +12,7 @@ const SearchedList = () => {
       {!isSearching && (
         <FilmsWrapper>
           <DetailFilm />
-          {searchedFilms.map((film) => {
-            return <Film key={film.id} {...film} />
-          })}
+          {searchedFilms.map((film) => <Film key={film.id} {...film} />)}
         </FilmsWrapper>
       )}
     </div>

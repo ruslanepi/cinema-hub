@@ -15,9 +15,7 @@ const Actors = () => {
 
   return (
     <ActorsWrapper>
-      {popularActors.map((actor) => {
-        return <Actor key={actor.id} {...actor} />;
-      })}
+      {popularActors.map((actor) => <Actor key={actor.id} {...actor} />)}
     </ActorsWrapper>
   );
 };
