@@ -215,6 +215,7 @@ const ButtonBlock = styled.div`
   align-items: center;
   width: 100%;
   z-index: 10;
+  cursor: pointer;
 
   &:hover .title-button {
     right: 50px;

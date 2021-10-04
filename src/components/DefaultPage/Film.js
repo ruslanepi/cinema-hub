@@ -58,7 +58,11 @@ const Film = (film) => {
       <FilmTopContent>
         <img
           onClick={filmDetailHandler}
-          src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+          src={`https://image.tmdb.org/t/p/w500${
+            poster_path
+              ? poster_path
+              : 'https://image.tmdb.org/t/p/w500/b6MiDuJY694YWHMc9iaEc6nY0Qs.jpg'
+          }`}
           alt={title}
           className={currentFilmFilled.status === 'reviewed' ? 'watched' : ''}
         />
@@ -101,9 +105,15 @@ const FilmWrapper = styled.article`
   position: relative;
 
   img {
-    width: 100%;
     cursor: pointer;
     border-radius: 25px 25px 0px 0px;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ccc;
   }
   img.watched {
     opacity: 0.7;
@@ -111,6 +121,10 @@ const FilmWrapper = styled.article`
 `
 
 const FilmTopContent = styled.article`
+  position: relative;
+
+  padding-bottom: 150%;
+  overflow: hidden;
   position: relative;
 
   .vote-rating {
