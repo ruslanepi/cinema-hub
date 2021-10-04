@@ -164,7 +164,7 @@ const FilmTopContent = styled.div`
     .button {
       display: flex;
       align-items: center;
-      width: 170px;
+      width: 180px;
       padding: 8px 20px;
       margin-bottom: 3px;
 
