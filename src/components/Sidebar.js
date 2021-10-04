@@ -97,14 +97,18 @@ const SidebarWrapper = styled.aside`
 
     &.active {
       transform: translateX(-14%);
-      box-shadow: 0px 0px 22px 1px #ccc;
+      box-shadow: 0px 0px 67px 2px #626262;
       padding: 25px 25px 15px 75px;
 
       .sidebar-toggler {
         background: #fbfbfb;
-        right: -76px;
-        box-shadow: 0px 5px 12px 1px #f1f1f1;
+        right: -81px;
+        padding: 10px 15px 10px 15px;
+        box-shadow: inset 0px -6px 8px -4px #cfcfcf;
+
         transition: transform ease 0.3s;
+        border: 1px solid #ccc;
+        border-top: none;
         &__icon {
           font-size: 14px;
           transform: rotate(180deg);
@@ -122,16 +126,16 @@ const SidebarWrapper = styled.aside`
       right: -74px;
       top: 35vh;
 
-      padding: 10px;
+      padding: 25px 15px 10px 15px;
       background: #fff;
       border-radius: 0px 0px 10px 10px;
-      border: 1px solid #ccc;
-      border-top: none;
+
       transform: rotate(-90deg);
+      transition: all ease 0.3s;
 
       line-height: 10px;
 
-      box-shadow: 0px 1px 4px 1px #dbdbdb;
+      box-shadow: 0px 0px 3px 0px #565656;
       &__title {
         display: block;
         margin-right: 10px;

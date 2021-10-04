@@ -10,8 +10,13 @@ const LibraryDetailFilm = () => {
   const { title, vote_average, overview, tagline, budget } = useSelector(
     (state) => state.details.filmDetails
   )
+
   const { backdrops } = useSelector((state) => state.details.filmScreens)
   const { isLoading } = useSelector((state) => state.details)
+
+  const { myLibrary } = useSelector((state) => state.library)
+  const currentFilm = myLibrary.find((item) => item.id == id)
+  console.log(id, currentFilm)
 
   const dispatch = useDispatch()
   const textarea = useRef(null)
@@ -42,25 +47,30 @@ const LibraryDetailFilm = () => {
           <span>{tagline}</span>
           <div>Бюджет {budget}</div>
           <div>Оценка: {vote_average} / 10</div>
-          <p>{overview}</p>
-          <form className='review-form'>
-            <textarea ref={textarea} rows='8' required='required'></textarea>
-            <ButtonsWrapper>
-              <div className='rating-wrapper'>
-                <span className='rating'>Моя оценка</span>
-                <input
-                  type='number'
-                  ref={voteRating}
-                  required='required'
-                  min='1'
-                  max='10'
-                />
-              </div>
-              <button onClick={(e) => addReviewHandler(e)}>
-                Оставить отзыв
-              </button>
-            </ButtonsWrapper>
-          </form>
+          <p className='content'>{overview}</p>
+          {currentFilm.status === 'reviewed' ? (
+            ''
+          ) : (
+            <form className='review-form'>
+              <textarea ref={textarea} rows='8' required='required'></textarea>
+              <ButtonsWrapper>
+                <div className='rating-wrapper'>
+                  <span className='rating'>Моя оценка</span>
+                  <input
+                    type='number'
+                    ref={voteRating}
+                    required='required'
+                    min='1'
+                    max='10'
+                  />
+                </div>
+                <button onClick={(e) => addReviewHandler(e)}>
+                  Оставить отзыв
+                </button>
+              </ButtonsWrapper>
+            </form>
+          )}
+
           <GalleryWrapper>
             {backdrops.map((image, index) => (
               <img
@@ -103,6 +113,10 @@ const FilmWrapper = styled.div`
         font-size: 14px;
       }
     }
+  }
+
+  .content {
+    margin-bottom: 15px;
   }
 `
 const ButtonsWrapper = styled.div`
