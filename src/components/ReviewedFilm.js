@@ -42,6 +42,9 @@ const ReviewedFilm = (film) => {
       <FilmRightSide>
         <span>Содержание отзыва:</span>
         <p> {currentFilm.review}</p>
+        <NavLink to={`/profile/edit-review/${id}`}>
+          Изменить отзыв и оценку
+        </NavLink>
       </FilmRightSide>
     </FilmWrapper>
   )

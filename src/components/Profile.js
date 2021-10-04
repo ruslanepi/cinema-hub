@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import LibraryFilm from './LibraryFilm'
 import LibraryDetailFilm from './Library/LibraryDetailFilm'
 import ReviewedFilm from './ReviewedFilm'
+import EditReview from './Review/EditReview'
 
 const Profile = () => {
   const { myLibrary } = useSelector((state) => state.library)
@@ -64,6 +65,10 @@ const Profile = () => {
               <div>вы не оставили ни одного отзыва</div>
             )}
           </ProfileContent>
+        </Route>
+
+        <Route path='/profile/edit-review/:id'>
+          <EditReview />
         </Route>
 
         <Route path='/profile/:id'>
