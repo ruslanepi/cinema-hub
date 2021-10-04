@@ -21,7 +21,7 @@ p {
 
 .header {
  padding: 15px 0px;
- background: #fff;
+ background: #f9f9f9;
  width: 100%;
 }
 

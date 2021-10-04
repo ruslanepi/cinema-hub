@@ -12,6 +12,7 @@ const Profile = () => {
   const filmsToWatch = myLibrary.filter((item) => item.status === 'want')
   const filmsToReview = myLibrary.filter((item) => item.status === 'watched')
   const filmsReviews = myLibrary.filter((item) => item.status === 'reviewed')
+  const filmsInLibrary = myLibrary.filter((item) => item.status !== 'reviewed')
 
   return (
     <ProfilePage>
@@ -21,7 +22,9 @@ const Profile = () => {
           <ProfileContent>
             {filmsToWatch && (
               <FilmsWrapper>
-                {filmsToWatch.map((film) => <LibraryFilm key={film.id} {...film} />)}
+                {filmsToWatch.map((film) => (
+                  <LibraryFilm key={film.id} {...film} />
+                ))}
               </FilmsWrapper>
             )}
 
@@ -35,7 +38,9 @@ const Profile = () => {
           <ProfileContent>
             {filmsToReview && (
               <FilmsWrapper>
-                {filmsToReview.map((film) => <LibraryFilm key={film.id} {...film} />)}
+                {filmsToReview.map((film) => (
+                  <LibraryFilm key={film.id} {...film} />
+                ))}
               </FilmsWrapper>
             )}
 
@@ -49,7 +54,9 @@ const Profile = () => {
           <ProfileContent>
             {filmsReviews && (
               <FilmsWrapperReview>
-                {filmsReviews.map((film) => <ReviewedFilm key={film.id} {...film} />)}
+                {filmsReviews.map((film) => (
+                  <ReviewedFilm key={film.id} {...film} />
+                ))}
               </FilmsWrapperReview>
             )}
 
@@ -65,13 +72,15 @@ const Profile = () => {
 
         <Route path='/profile'>
           <ProfileContent>
-            {myLibrary && (
+            {filmsInLibrary && (
               <FilmsWrapper>
-                {myLibrary.map((film) => <LibraryFilm key={film.id} {...film} />)}
+                {filmsInLibrary.map((film) => (
+                  <LibraryFilm key={film.id} {...film} />
+                ))}
               </FilmsWrapper>
             )}
 
-            {myLibrary.length === 0 && (
+            {filmsInLibrary.length === 0 && (
               <div>вы не добавили ни одного фильма в ИЗБРАННОЕ</div>
             )}
           </ProfileContent>
@@ -86,7 +95,9 @@ const ProfilePage = styled.section`
   grid-template-columns: 2fr 7fr;
   gap: 15px;
   background: #fff;
-
+  @media (max-width: 768px) {
+    display: flex;
+  }
   a {
     text-decoration: none;
   }
@@ -103,6 +114,10 @@ const FilmsWrapper = styled.article`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 15px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `
 
 const FilmsWrapperReview = styled.article`

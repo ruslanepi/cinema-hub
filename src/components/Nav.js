@@ -5,7 +5,6 @@ import { searchFilm } from '../actions/filmsAction'
 import { useDispatch } from 'react-redux'
 import classNames from 'classnames'
 
-import logo from '../images/logo-profile3.png'
 import { useHistory } from 'react-router'
 import burger from '../images/burger.png'
 
@@ -16,10 +15,9 @@ const Nav = () => {
   const [searchValue, setSearchValue] = useState('')
   const [activeMenu, setActiveMenu] = useState(false)
 
-
-useEffect(()=> {
-   setActiveMenu(false)
-}, [])
+  useEffect(() => {
+    setActiveMenu(false)
+  }, [])
 
   const searchFormHandler = (e) => {
     e.preventDefault()
@@ -29,22 +27,22 @@ useEffect(()=> {
     history.push(`/search/${searchValue}`)
   }
 
-
-
   //classNames
   const burgerClasses = classNames({
-      'burger': true,
-      'active': activeMenu
-    });
-  const menuClasses = classNames({'active': activeMenu})
-  const activeMenuClass =  { color: 'red'}
+    burger: true,
+    active: activeMenu,
+  })
+  const menuClasses = classNames({ active: activeMenu })
+  const activeMenuClass = {
+    color: '#015595',
+    'border-bottom': '1px solid #ffbc00',
+  }
 
   return (
     <>
       <LogoWrapper onClick={() => setActiveMenu(false)}>
         <NavLink to='/'>
           <LogoImg>
-            <img src={logo} alt='' />
             <div className='logo'>Cinema-Hub</div>
           </LogoImg>
         </NavLink>
@@ -53,13 +51,19 @@ useEffect(()=> {
       <NavMenu>
         <NavWrapper className={menuClasses}>
           <LinkWrapper onClick={() => setActiveMenu(false)}>
-            <NavLink activeStyle={activeMenuClass} exact to='/'>Новинки</NavLink>
+            <NavLink activeStyle={activeMenuClass} exact to='/'>
+              Новинки
+            </NavLink>
           </LinkWrapper>
           <LinkWrapper onClick={() => setActiveMenu(false)}>
-            <NavLink activeStyle={activeMenuClass} to='/profile'>Мои фильмы</NavLink>
+            <NavLink activeStyle={activeMenuClass} to='/profile'>
+              Мои фильмы
+            </NavLink>
           </LinkWrapper>
           <LinkWrapper onClick={() => setActiveMenu(false)}>
-            <NavLink activeStyle={activeMenuClass}  to='/actors'>Актеры</NavLink>
+            <NavLink activeStyle={activeMenuClass} to='/actors'>
+              Актеры
+            </NavLink>
           </LinkWrapper>
 
           <LinkWrapper>
@@ -103,7 +107,15 @@ const LogoImg = styled.div`
   .logo {
     font-family: 'Russo One', sans-serif;
     font-size: 24px;
-    color: #33727b;
+    color: #015595;
+    line-height: 25px;
+    border-bottom: 2px solid #ffbc00;
+    transition: all ease 0.2s;
+
+    :hover {
+      border-bottom: 8px solid #ffbc00;
+      line-height: 22px;
+    }
   }
 `
 
@@ -121,6 +133,10 @@ const NavMenu = styled.div`
         transform: rotate(-30deg);
       }
     }
+  }
+
+  a {
+    font-size: 18px;
   }
 `
 
@@ -147,7 +163,7 @@ const NavWrapper = styled.div`
       left: 0;
       top: 12vh;
       background: #fff;
-      z-index: 99;
+      z-index: 999;
     }
   }
 `

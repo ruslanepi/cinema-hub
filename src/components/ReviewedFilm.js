@@ -51,6 +51,10 @@ const FilmWrapper = styled.article`
   display: flex;
   margin-bottom: 25px;
 
+  @media (max-width: 768px) {
+    width: 100%;
+    flex-direction: column;
+  }
   img {
     width: 100%;
   }
@@ -58,12 +62,20 @@ const FilmWrapper = styled.article`
 
 const FilmLeftSide = styled.div`
   width: 40%;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `
 const FilmRightSide = styled.div`
   padding: 25px;
   width: 60%;
 
   background-color: #f1f1f1;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `
 
 const FilmTopContent = styled.div`

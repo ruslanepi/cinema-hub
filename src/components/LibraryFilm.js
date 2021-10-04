@@ -23,9 +23,8 @@ import { NavLink } from 'react-router-dom'
 const LibraryFilm = (film) => {
   const { id, title, poster_path, vote_average, release_date } = film
   const { myLibrary } = useSelector((state) => state.library)
-   const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const currentFilm = myLibrary.find((item) => item.id === id)
-
 
   const removeFilmFromLibrary = (e) => {
     dispatch(removeFilm(id))
@@ -39,29 +38,24 @@ const LibraryFilm = (film) => {
     dispatch(changeStatusWant(id))
   }
 
-
   const watchedButton = classNames({
-    'button': true,
-    'selected' : currentFilm.status === 'watched',
+    button: true,
+    selected: currentFilm.status === 'watched',
   })
 
   const wantButton = classNames({
-    'button': true,
-    'selected' : currentFilm.status === 'want',
+    button: true,
+    selected: currentFilm.status === 'want',
   })
 
   const voteButton = classNames({
-    'button': true,
-   'disable': currentFilm.status !== 'watched'
+    button: true,
+    disable: currentFilm.status !== 'watched',
   })
 
   const watchedFilm = classNames({
-
-    'watched': currentFilm.status === 'reviewed'
+    watched: currentFilm.status === 'reviewed',
   })
-
-
-   
 
   return (
     <FilmWrapper>
@@ -72,14 +66,19 @@ const LibraryFilm = (film) => {
           ''
         )}
 
-        <ButtonBlock onClick={removeFilmFromLibrary}>
-          <TitleButton className='title-button'>
-            Убрать из избранного
-          </TitleButton>
-          <IconButton>
-            <FontAwesomeIcon icon={faTimes} />
-          </IconButton>
-        </ButtonBlock>
+        {currentFilm.status === 'reviewed' ? (
+          ''
+        ) : (
+          <ButtonBlock onClick={removeFilmFromLibrary}>
+            <TitleButton className='title-button'>
+              Убрать из избранного
+            </TitleButton>
+            <IconButton>
+              <FontAwesomeIcon icon={faTimes} />
+            </IconButton>
+          </ButtonBlock>
+        )}
+
         <NavLink to={`/profile/${id}`}>
           <img
             src={`https://image.tmdb.org/t/p/w500${poster_path}`}
@@ -96,7 +95,7 @@ const LibraryFilm = (film) => {
               onClick={(e) => changeStatusWantHandler(e)}
             >
               <FontAwesomeIcon className='icon' icon={faPlay} /> Хочу посмотреть
-            </div> 
+            </div>
             <div
               className={watchedButton}
               onClick={(e) => changeStatusWatchedHandler(e)}
@@ -104,9 +103,7 @@ const LibraryFilm = (film) => {
               <FontAwesomeIcon className='icon' icon={faCheck} /> Просмотрено
             </div>
             <NavLink to={`/profile/${id}`}>
-              <div
-                className={voteButton}
-              >
+              <div className={voteButton}>
                 <FontAwesomeIcon className='icon' icon={faStarHalfAlt} />{' '}
                 Оценить
               </div>
@@ -154,12 +151,15 @@ const FilmTopContent = styled.div`
   .toggler {
     position: absolute;
     bottom: 0px;
-    right: -4px;
+    right: 0px;
 
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     width: 100%;
+
+    background: linear-gradient(0deg, black, transparent);
+    padding: 65px 0px 1px;
 
     .button {
       display: flex;
@@ -168,12 +168,12 @@ const FilmTopContent = styled.div`
       padding: 8px 20px;
       margin-bottom: 3px;
 
-      background: #6e979b;
+      background: #f9f9f9;
       border-radius: 5px 1px 1px 5px;
       opacity: 1;
       /* box-shadow: -2px 5px 2px -2px #3c3c3c70; */
 
-      color: #fff;
+      color: #015595;
       font-size: 13px;
 
       letter-spacing: 0.5px;
@@ -198,8 +198,8 @@ const FilmTopContent = styled.div`
       &.selected {
         width: 180px;
         pointer-events: none;
-        background: #fafad8;
-        color: #111;
+        background: #015595;
+        color: #f9f9f9;
       }
     }
   }

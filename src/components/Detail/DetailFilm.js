@@ -43,7 +43,9 @@ const DetailFilm = () => {
                 <span class='votes'>Оценка: {vote_average} / 10</span>
                 <div class='genres'>
                   <ul>
-                    {genres.map((genre) => <li key={genre.id}>{genre.name}</li>)}
+                    {genres.map((genre) => (
+                      <li key={genre.id}>{genre.name}</li>
+                    ))}
                   </ul>
                 </div>
               </FilmAttributes>
@@ -90,7 +92,7 @@ const DetailWrapper = styled.div`
   height: 100vh;
 
   z-index: 10;
-  background: #ccc;
+  background: #fff;
 
   @media (max-width: 1200px) {
     width: 80%;
@@ -168,7 +170,8 @@ const FilmHeader = styled.div`
 
     li {
       margin-right: 10px;
-      background: #e2e2e2;
+      background: #015595;
+      color: #fff;
       border-radius: 10px;
       padding: 2px 12px;
       font-size: 14px;

@@ -46,9 +46,15 @@ const LibraryDetailFilm = () => {
           <form className='review-form'>
             <textarea ref={textarea} rows='8' required='required'></textarea>
             <ButtonsWrapper>
-              <div>
+              <div className='rating-wrapper'>
                 <span className='rating'>Моя оценка</span>
-                <input type='number' ref={voteRating} required='required' />
+                <input
+                  type='number'
+                  ref={voteRating}
+                  required='required'
+                  min='1'
+                  max='10'
+                />
               </div>
               <button onClick={(e) => addReviewHandler(e)}>
                 Оставить отзыв
@@ -56,12 +62,13 @@ const LibraryDetailFilm = () => {
             </ButtonsWrapper>
           </form>
           <GalleryWrapper>
-            {backdrops.map((image, index) => <img
-                  src={`https://image.tmdb.org/t/p/w500${image.file_path}`}
-                  id={index}
-                  key={image.file_path}
-                ></img>
-                 )}
+            {backdrops.map((image, index) => (
+              <img
+                src={`https://image.tmdb.org/t/p/w500${image.file_path}`}
+                id={index}
+                key={image.file_path}
+              ></img>
+            ))}
           </GalleryWrapper>
         </FilmWrapper>
       )}
@@ -70,6 +77,8 @@ const LibraryDetailFilm = () => {
 }
 
 const FilmWrapper = styled.div`
+  width: 100%;
+
   .review-form {
     textarea {
       width: 100%;
@@ -81,30 +90,41 @@ const FilmWrapper = styled.div`
     }
 
     button {
-      padding: 7px 18px;
-
+      padding: 4px 18px 6px 18px;
       border: none;
-      background-color: #689c96;
+      background-color: #015595;
       border-radius: 5px;
-
       font-size: 18px;
-      font-weight: bold;
+      line-height: 30px;
+      font-weight: normal;
       color: #fff;
+      @media (max-width: 768px) {
+        padding: 6px 16px;
+        font-size: 14px;
+      }
     }
   }
 `
 const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
 
   margin-bottom: 20px;
-  div {
+  .rating-wrapper {
     padding: 5px 20px;
     margin-right: 30px;
 
     border-radius: 5px;
+
+    @media (max-width: 768px) {
+      padding: 3px 8px;
+      font-size: 14px;
+      margin-right: 0px;
+    }
   }
+
   .rating {
     margin-right: 10px;
     font-family: 'Russo One', sans-serif;

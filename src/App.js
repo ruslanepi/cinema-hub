@@ -46,7 +46,7 @@ function App() {
 
 const HeaderWrapper = styled.header`
   margin-bottom: 15px;
-  background: #f1f1f1;
+  background: #f9f9f9;
   padding: 10px 0px;
 
   @media (max-width: 767px) {

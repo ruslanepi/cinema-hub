@@ -69,7 +69,7 @@ const Film = (film) => {
         )}
       </FilmTopContent>
 
-      <ButtonBlock>
+      <ButtonBlock onClick={LibraryHandler}>
         <TitleButton
           className={filledStar ? ' title-button' : 'active title-button'}
         >
@@ -80,10 +80,7 @@ const Film = (film) => {
         >
           Убрать из библиотеки
         </TitleButton>
-        <IconButton
-          className={filledStar ? 'active' : ''}
-          onClick={LibraryHandler}
-        >
+        <IconButton className={filledStar ? 'active' : ''}>
           <FontAwesomeIcon icon={faStar} />
         </IconButton>
       </ButtonBlock>
@@ -138,6 +135,8 @@ const ButtonBlock = styled.div`
   justify-content: flex-end;
   align-items: center;
   width: 100%;
+
+  cursor: pointer;
 
   &:hover .title-button.active {
     right: 50px;
