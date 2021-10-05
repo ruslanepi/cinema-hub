@@ -1,12 +1,15 @@
 import React from "react";
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
-const Actor = ({ name, profile_path }) => {
+const Actor = ({ name, profile_path, id }) => {
   return (
-    <ActorWrapper>
-      <img src={`https://image.tmdb.org/t/p/w500${profile_path}`} alt="" />
-      <p>{name}</p>
-    </ActorWrapper>
+    <NavLink to={`/actors/${id}`}>
+      <ActorWrapper>
+        <img src={`https://image.tmdb.org/t/p/w500${profile_path}`} alt="" />
+        <p>{name}</p>
+      </ActorWrapper>
+    </NavLink>
   );
 };
 

@@ -1,49 +1,49 @@
-import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
-import { NavLink } from 'react-router-dom'
-import { searchFilm } from '../actions/filmsAction'
-import { useDispatch } from 'react-redux'
-import classNames from 'classnames'
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { NavLink } from "react-router-dom";
+import { searchFilm } from "../actions/filmsAction";
+import { useDispatch } from "react-redux";
+import classNames from "classnames";
 
-import { useHistory } from 'react-router'
-import burger from '../images/burger.png'
+import { useHistory } from "react-router";
+import burger from "../images/burger.png";
 
 const Nav = () => {
-  const history = useHistory()
-  const dispatch = useDispatch()
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-  const [searchValue, setSearchValue] = useState('')
-  const [activeMenu, setActiveMenu] = useState(false)
+  const [searchValue, setSearchValue] = useState("");
+  const [activeMenu, setActiveMenu] = useState(false);
 
   useEffect(() => {
-    setActiveMenu(false)
-  }, [])
+    setActiveMenu(false);
+  }, []);
 
   const searchFormHandler = (e) => {
-    e.preventDefault()
-    setActiveMenu(false)
-    dispatch(searchFilm(searchValue))
-    setSearchValue('')
-    history.push(`/search/${searchValue}`)
-  }
+    e.preventDefault();
+    setActiveMenu(false);
+    dispatch(searchFilm(searchValue));
+    setSearchValue("");
+    history.push(`/search/${searchValue}`);
+  };
 
   //classNames
   const burgerClasses = classNames({
     burger: true,
     active: activeMenu,
-  })
-  const menuClasses = classNames({ active: activeMenu })
+  });
+  const menuClasses = classNames({ active: activeMenu });
   const activeMenuClass = {
-    color: '#015595',
-    'border-bottom': '1px solid #ffbc00',
-  }
+    color: "#015595",
+    borderBottom: "1px solid #ffbc00",
+  };
 
   return (
     <>
       <LogoWrapper onClick={() => setActiveMenu(false)}>
-        <NavLink to='/'>
+        <NavLink to="/">
           <LogoImg>
-            <div className='logo'>Cinema-Hub</div>
+            <div className="logo">Cinema-Hub</div>
           </LogoImg>
         </NavLink>
       </LogoWrapper>
@@ -51,17 +51,17 @@ const Nav = () => {
       <NavMenu>
         <NavWrapper className={menuClasses}>
           <LinkWrapper onClick={() => setActiveMenu(false)}>
-            <NavLink activeStyle={activeMenuClass} exact to='/'>
+            <NavLink activeStyle={activeMenuClass} exact to="/">
               Новинки
             </NavLink>
           </LinkWrapper>
           <LinkWrapper onClick={() => setActiveMenu(false)}>
-            <NavLink activeStyle={activeMenuClass} to='/profile'>
+            <NavLink activeStyle={activeMenuClass} to="/profile">
               Мои фильмы
             </NavLink>
           </LinkWrapper>
           <LinkWrapper onClick={() => setActiveMenu(false)}>
-            <NavLink activeStyle={activeMenuClass} to='/actors'>
+            <NavLink activeStyle={activeMenuClass} to="/actors">
               Актеры
             </NavLink>
           </LinkWrapper>
@@ -69,8 +69,8 @@ const Nav = () => {
           <LinkWrapper>
             <form onSubmit={(e) => searchFormHandler(e)}>
               <input
-                type='text'
-                placeholder='Поиск по фильмам'
+                type="text"
+                placeholder="Поиск по фильмам"
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
               />
@@ -81,19 +81,19 @@ const Nav = () => {
           src={burger}
           className={burgerClasses}
           onClick={() => setActiveMenu(!activeMenu)}
-          alt='burger'
+          alt="burger"
         />
       </NavMenu>
     </>
-  )
-}
+  );
+};
 
 const LogoWrapper = styled.div`
   a {
     display: block;
     text-decoration: none;
   }
-`
+`;
 
 const LogoImg = styled.div`
   display: flex;
@@ -105,7 +105,7 @@ const LogoImg = styled.div`
   }
 
   .logo {
-    font-family: 'Russo One', sans-serif;
+    font-family: "Russo One", sans-serif;
     font-size: 24px;
     color: #015595;
     line-height: 25px;
@@ -117,7 +117,7 @@ const LogoImg = styled.div`
       line-height: 22px;
     }
   }
-`
+`;
 
 const NavMenu = styled.div`
   .burger {
@@ -138,7 +138,7 @@ const NavMenu = styled.div`
   a {
     font-size: 18px;
   }
-`
+`;
 
 const NavWrapper = styled.div`
   @media (max-width: 767px) {
@@ -166,7 +166,7 @@ const NavWrapper = styled.div`
       z-index: 999;
     }
   }
-`
+`;
 
 const LinkWrapper = styled.div`
   display: inline-block;
@@ -177,7 +177,7 @@ const LinkWrapper = styled.div`
   }
 
   a {
-    font-family: 'Russo One', sans-serif;
+    font-family: "Russo One", sans-serif;
     text-decoration: none;
     color: #464642;
   }
@@ -198,6 +198,6 @@ const LinkWrapper = styled.div`
   @media (max-width: 767px) {
     margin-bottom: 15px;
   }
-`
+`;
 
-export default Nav
+export default Nav;

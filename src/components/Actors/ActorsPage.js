@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import Actor from "./Actor";
 import styled from "styled-components";
+import ActorDetails from "./ActorDetails";
 
 import { useSelector, useDispatch } from "react-redux";
 import { loadActors } from "../../actions/filmsAction";
+import { Switch, Route } from "react-router";
 
 const Actors = () => {
   const dispatch = useDispatch();
@@ -14,9 +16,18 @@ const Actors = () => {
   }, [dispatch]);
 
   return (
-    <ActorsWrapper>
-      {popularActors.map((actor) => <Actor key={actor.id} {...actor} />)}
-    </ActorsWrapper>
+    <Switch>
+      <Route path="/actors/:id">
+        <ActorDetails />
+      </Route>
+      <Route path="/actors">
+        <ActorsWrapper>
+          {popularActors.map((actor) => (
+            <Actor key={actor.id} {...actor} />
+          ))}
+        </ActorsWrapper>
+      </Route>
+    </Switch>
   );
 };
 
