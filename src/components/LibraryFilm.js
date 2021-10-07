@@ -10,11 +10,7 @@ import {
   faPlay,
 } from '@fortawesome/free-solid-svg-icons'
 
-import {
-  addFilmToWishList,
-  changeStatusWatched,
-  changeStatusWant,
-} from '../actions/filmsAction'
+import { changeStatusWatched, changeStatusWant } from '../actions/filmsAction'
 
 import classNames from 'classnames'
 
@@ -218,7 +214,7 @@ const ButtonBlock = styled.div`
   cursor: pointer;
 
   &:hover .title-button {
-    right: 50px;
+    right: 40px;
     opacity: 1;
     visibility: visible;
   }
@@ -230,9 +226,9 @@ const TitleButton = styled.div`
   opacity: 0;
 
   position: absolute;
-  right: 30px;
-  margin-right: 15px;
-  padding: 7px 20px;
+  right: 10px;
+  margin-right: 5px;
+  padding: 7px 14px;
 
   font-size: 14px;
   color: #111;

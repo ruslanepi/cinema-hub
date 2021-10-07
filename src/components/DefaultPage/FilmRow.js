@@ -1,60 +1,127 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   addFilm,
   removeFilm,
   getDetails,
   toggleDetail,
-} from "../../actions/filmsAction";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+} from '../../actions/filmsAction'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 const FilmRow = (film) => {
-  const { id, title, poster_path, vote_average, overview, release_date } = film;
-  const dispatch = useDispatch();
+  const { id, title, poster_path, overview, release_date, genre_ids } = film
+  const dispatch = useDispatch()
 
-  const [disabled, setDisabled] = useState(false);
-  const [filledStar, setFilledStar] = useState(false);
+  const [disabled, setDisabled] = useState(false)
+  const [filledStar, setFilledStar] = useState(false)
+  const [genres, setGenres] = useState([])
 
-  const { myLibrary } = useSelector((state) => state.library);
-  const currentFilm = myLibrary.find((item) => item.id === id);
+  const { myLibrary } = useSelector((state) => state.library)
+  const currentFilm = myLibrary.find((item) => item.id === id)
 
-  let currentFilmFilled = {};
+  let currentFilmFilled = {}
   if (currentFilm) {
-    currentFilmFilled = currentFilm;
+    currentFilmFilled = currentFilm
   }
 
-  const releaseDay = release_date.split("-")[2];
-  const releaseDate = release_date.split("-").slice(0, 2).reverse().join(".");
+  const releaseDay = release_date.split('-')[2]
+  const releaseDate = release_date.split('-').slice(0, 2).reverse().join('.')
+
+  let genresArray = []
 
   useEffect(() => {
-    checkFilmInLibrary();
-  });
+    checkFilmInLibrary()
+
+    // setGenres(genresArray)
+  })
 
   const LibraryHandler = () => {
     if (checkFilmInLibrary()) {
-      dispatch(removeFilm(id));
+      dispatch(removeFilm(id))
     } else {
-      dispatch(addFilm({ ...film }));
+      dispatch(addFilm({ ...film }))
     }
-  };
+  }
 
   const checkFilmInLibrary = () => {
-    const checker = myLibrary.filter((item) => item.id === id);
+    const checker = myLibrary.filter((item) => item.id === id)
     if (checker.length > 0) {
-      setFilledStar(true);
-      return true;
+      setFilledStar(true)
+      return true
     } else {
-      setFilledStar(false);
-      return false;
+      setFilledStar(false)
+      return false
     }
-  };
+  }
 
   const filmDetailHandler = () => {
-    dispatch(getDetails(id));
-    dispatch(toggleDetail());
-  };
+    dispatch(getDetails(id))
+    dispatch(toggleDetail())
+  }
+
+  const newArray = []
+  genre_ids.forEach((element) => {
+    switch (element) {
+      case 28:
+        newArray.push('Экшен')
+        break
+      case 12:
+        newArray.push('Приключения')
+        break
+      case 16:
+        newArray.push('Мультфильм')
+        break
+      case 36:
+        newArray.push('Комедия')
+        break
+      case 80:
+        newArray.push('Криминал')
+        break
+      case 99:
+        newArray.push('Документальный')
+        break
+      case 18:
+        newArray.push('Драма')
+        break
+      case 14:
+        newArray.push('Фэнтези')
+        break
+      case 36:
+        newArray.push('Исторический')
+        break
+      case 27:
+        newArray.push('Ужасы')
+        break
+      case 10402:
+        newArray.push('Мюзикл')
+        break
+      case 9648:
+        newArray.push('Мистика')
+        break
+      case 10749:
+        newArray.push('Мелодрама')
+        break
+      case 878:
+        newArray.push('Научный')
+        break
+      case 10770:
+        newArray.push('TV Show')
+        break
+      case 53:
+        newArray.push('Триллер')
+        break
+      case 10752:
+        newArray.push('Военный')
+        break
+      case 37:
+        newArray.push('Вестерн')
+        break
+      default:
+        return []
+    }
+  })
 
   return (
     <FilmWrapper>
@@ -64,49 +131,55 @@ const FilmRow = (film) => {
           src={`https://image.tmdb.org/t/p/w500${
             poster_path
               ? poster_path
-              : "https://image.tmdb.org/t/p/w500/b6MiDuJY694YWHMc9iaEc6nY0Qs.jpg"
+              : 'https://image.tmdb.org/t/p/w500/b6MiDuJY694YWHMc9iaEc6nY0Qs.jpg'
           }`}
           alt={title}
-          className={currentFilmFilled.status === "reviewed" ? "watched" : ""}
+          className={currentFilmFilled.status === 'reviewed' ? 'watched' : ''}
         />
         {currentFilmFilled.voteRating ? (
-          <div className="vote-rating">{currentFilmFilled.voteRating}/10</div>
+          <div className='vote-rating'>{currentFilmFilled.voteRating}/10</div>
         ) : (
-          ""
+          ''
         )}
       </FilmTopContent>
 
       <ButtonBlock onClick={LibraryHandler}>
         <TitleButton
-          className={filledStar ? " title-button" : "active title-button"}
+          className={filledStar ? ' title-button' : 'active title-button'}
         >
           Добавить в библиотеку
         </TitleButton>
         <TitleButton
-          className={filledStar ? "active title-button" : "title-button"}
+          className={filledStar ? 'active title-button' : 'title-button'}
         >
           Убрать из библиотеки
         </TitleButton>
-        <IconButton className={filledStar ? "active" : ""}>
+        <IconButton className={filledStar ? 'active' : ''}>
           <FontAwesomeIcon icon={faStar} />
         </IconButton>
       </ButtonBlock>
 
       <FilmBottomContent>
-        <div onClick={filmDetailHandler} className="title">
-          {title}
-        </div>
-        <div></div>
         <FilmParameters>
-          <div className="release__wrapper">
-            <span className="release__day">{releaseDay}</span>
-            <span className="release__date"> {releaseDate}</span>
+          <div onClick={filmDetailHandler} className='title'>
+            {title}
+          </div>
+          <div className='release__wrapper'>
+            <span className='release__day'>{releaseDay}</span>
+            <span className='release__date'> {releaseDate}</span>
           </div>
         </FilmParameters>
+        <div>
+          {newArray.map((item) => (
+            <div className='genre-title' key={item}>
+              {item}
+            </div>
+          ))}
+        </div>
       </FilmBottomContent>
     </FilmWrapper>
-  );
-};
+  )
+}
 
 const FilmWrapper = styled.article`
   position: relative;
@@ -114,6 +187,14 @@ const FilmWrapper = styled.article`
   grid-template-columns: 1fr 10fr;
   grid-template-rows: 160px;
   width: 100%;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 2fr 7fr;
+  }
+
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr 10fr;
+  }
 
   img {
     cursor: pointer;
@@ -128,7 +209,7 @@ const FilmWrapper = styled.article`
   img.watched {
     opacity: 0.7;
   }
-`;
+`
 
 const FilmTopContent = styled.article`
   position: relative;
@@ -146,11 +227,11 @@ const FilmTopContent = styled.article`
     color: #ffffff;
     font-size: 26px;
     z-index: 9;
-    font-family: "Russo One", sans-serif;
+    font-family: 'Russo One', sans-serif;
     letter-spacing: 1px;
     line-height: 39px;
   }
-`;
+`
 
 const FilmBottomContent = styled.div`
   display: flex;
@@ -164,6 +245,14 @@ const FilmBottomContent = styled.div`
   background: #f1f1f1;
   padding: 15px;
 
+  .genre-title {
+    text-transform: lowercase;
+    background: #d9d9d9;
+    display: inline-block;
+    border-radius: 15px;
+    padding: 2px 15px;
+    font-size: 13px;
+  }
   .title {
     font-size: 16px;
     font-weight: 500;
@@ -194,12 +283,12 @@ const FilmBottomContent = styled.div`
       color: #585656;
     }
   }
-`;
+`
 
 const FilmParameters = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: row;
+  justify-content: space-between;
 
   font-size: 14px;
   color: #555;
@@ -211,7 +300,7 @@ const FilmParameters = styled.div`
   }
 
   .release__day {
-    font-family: "Russo One", sans-serif;
+    font-family: 'Russo One', sans-serif;
     font-size: 34px;
     line-height: 34px;
   }
@@ -219,17 +308,17 @@ const FilmParameters = styled.div`
   .release__date {
     color: #6b6b6b;
   }
-`;
+`
 
 const ButtonBlock = styled.div`
   position: absolute;
-  right: 15px;
-  top: 15px;
+  right: 17px;
+  bottom: 15px;
 
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 30%;
+  width: 50%;
 
   cursor: pointer;
 
@@ -257,7 +346,7 @@ const ButtonBlock = styled.div`
       visibility: visible;
     }
   }
-`;
+`
 
 const TitleButton = styled.div`
   transition: all ease 0.3s;
@@ -282,7 +371,7 @@ const TitleButton = styled.div`
     padding: 6px 16px;
     font-size: 18px;
   }
-`;
+`
 
 const IconButton = styled.button`
   height: 50px;
@@ -327,6 +416,6 @@ const IconButton = styled.button`
     width: 44px;
     font-size: 18px;
   }
-`;
+`
 
-export default FilmRow;
+export default FilmRow
