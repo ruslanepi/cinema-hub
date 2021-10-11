@@ -119,3 +119,9 @@ export const addReview = (review) => (dispatch) => {
     payload: review,
   })
 }
+
+export const setShowModeList = () => (dispatch) => {
+  dispatch({
+    type: 'SET_SHOWMODE_LIST',
+  })
+}

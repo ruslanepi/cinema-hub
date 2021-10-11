@@ -250,8 +250,9 @@ const FilmBottomContent = styled.div`
     background: #d9d9d9;
     display: inline-block;
     border-radius: 15px;
-    padding: 2px 15px;
+    padding: 2px 15px 4px 15px;
     font-size: 13px;
+    margin-right: 8px;
   }
   .title {
     font-size: 16px;

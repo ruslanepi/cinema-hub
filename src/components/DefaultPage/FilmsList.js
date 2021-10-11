@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { loadFilms } from '../../actions/filmsAction'
+import { loadFilms, setShowModeList } from '../../actions/filmsAction'
 import styled from 'styled-components'
 import DetailFilm from '../Detail/DetailFilm'
 
@@ -10,6 +10,7 @@ import FilmRow from './FilmRow'
 const FilmsList = () => {
   const dispatch = useDispatch()
   const { popularFilms, newFilms } = useSelector((state) => state.films)
+  const { showMode } = useSelector((state) => state.elements)
 
   useEffect(() => {
     dispatch(loadFilms(28))
@@ -19,10 +20,15 @@ const FilmsList = () => {
     dispatch(loadFilms(e.target.value))
   }
 
+  const showModeHandler = () => {
+    dispatch(setShowModeList())
+  }
+
   return (
     <section>
       <SortPanel>
         <p className='title'>Популярные сейчас:</p>
+        <div onClick={showModeHandler}>Клик</div>
         <select onChange={filterHandler}>
           <option value='28'>Экшены</option>
           <option value='12'>Приключения</option>
@@ -34,14 +40,26 @@ const FilmsList = () => {
         </select>
       </SortPanel>
 
-      <FilmsWrapper>
-        <DetailFilm />
-        {popularFilms.map((film) => (
-          <Film key={film.id} {...film} />
-        ))}
-      </FilmsWrapper>
+      {showMode ? (
+        <FilmsWrapper>
+          <DetailFilm />
+
+          {popularFilms.map((film) => (
+            <Film key={film.id} {...film} />
+          ))}
+        </FilmsWrapper>
+      ) : (
+        <FilmsWrapperRow>
+          <DetailFilm />
+          {popularFilms.map((film) => (
+            <FilmRow key={film.id} {...film} />
+          ))}
+        </FilmsWrapperRow>
+      )}
+
       <hr />
       <h2 className='section-title'>Скоро выйдут</h2>
+
       <FilmsWrapperRow>
         <DetailFilm />
         {newFilms.map((film) => (
