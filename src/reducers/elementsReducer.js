@@ -1,17 +1,30 @@
 const initState = {
-  showMode: false,
-}
+  showMode: "cells",
+  showList: false,
+};
 
 const elementsReducer = (state = initState, action) => {
   switch (action.type) {
-    case 'SET_SHOWMODE_LIST':
+    case "SET_SHOWMODE":
       return {
         ...state,
-        showMode: !state.showMode,
-      }
+        showMode: action.payload,
+      };
+
+    case "SET_SHOWLIST":
+      return {
+        ...state,
+        showList: !state.showList,
+      };
+
+    case "SET_SHOWLIST__FALSE":
+      return {
+        ...state,
+        showList: false,
+      };
 
     default:
-      return { ...state }
+      return { ...state };
   }
-}
-export default elementsReducer
+};
+export default elementsReducer;
