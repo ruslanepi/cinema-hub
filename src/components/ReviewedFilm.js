@@ -53,6 +53,8 @@ const ReviewedFilm = (film) => {
 const FilmWrapper = styled.article`
   display: flex;
   margin-bottom: 25px;
+  border-radius: 12px;
+  overflow: hidden;
 
   @media (max-width: 768px) {
     width: 100%;

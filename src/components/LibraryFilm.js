@@ -119,6 +119,8 @@ const LibraryFilm = (film) => {
 }
 
 const FilmWrapper = styled.article`
+  border-radius: 12px;
+  overflow: hidden;
   img {
     width: 100%;
   }

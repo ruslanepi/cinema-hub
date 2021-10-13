@@ -121,21 +121,29 @@ const FilmsList = () => {
 
 const FilmsWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 15px;
 
-  @media (max-width: 1200px) {
+  @media (max-width: 1199px) {
     grid-template-columns: repeat(3, 1fr);
   }
 
+  @media (max-width: 991px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   @media (max-width: 767px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 670px) {
     grid-template-columns: repeat(1, 1fr);
   }
 `
 
 const FilmsWrapperRow = styled.div`
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 15px;
 
   h2 {
@@ -160,11 +168,12 @@ const SortPanel = styled.div`
   margin-bottom: 20px;
 
   @media (max-width: 767px) {
-    flex-direction: column;
+    flex-direction: column-reverse;
+    margin-bottom: 10px;
   }
 
   .category-toggler {
-    border-radius: 30px;
+    border-radius: 12px;
     padding: 12px;
     position: relative;
     box-shadow: inset 0px 0px 4px 0px #ccc;
@@ -172,9 +181,7 @@ const SortPanel = styled.div`
     cursor: pointer;
 
     @media (max-width: 767px) {
-      margin-bottom: 15px;
-
-      width: 100%;
+      margin-bottom: 0px;
       display: flex;
       justify-content: space-between;
     }
@@ -187,15 +194,18 @@ const SortPanel = styled.div`
       left: 10px;
       width: 110px;
       height: 29px;
-      background: #efefef;
-      border-radius: 20px;
+      background: #f1f1f1;
+      border-radius: 5px;
       transition: all ease 0.3s;
-      box-shadow: 0px 0px 4px #c3c3c3;
+      box-shadow: 0px 0px 3px #c3c3c3;
     }
     &.active::before {
       transition: all ease 0.3s;
-      right: 10px;
-      left: unset;
+      left: 130px;
+
+      @media (max-width: 767px) {
+        left: 130px;
+      }
     }
 
     &__item {
@@ -216,6 +226,7 @@ const SortPanel = styled.div`
     @media (max-width: 767px) {
       width: 100%;
       justify-content: space-between;
+      margin-bottom: 15px;
     }
 
     .showmode-toggler {

@@ -73,21 +73,25 @@ const Film = (film) => {
         )}
       </FilmTopContent>
 
-      <ButtonBlock onClick={LibraryHandler}>
-        <TitleButton
-          className={filledStar ? ' title-button' : 'active title-button'}
-        >
-          Добавить в библиотеку
-        </TitleButton>
-        <TitleButton
-          className={filledStar ? 'active title-button' : 'title-button'}
-        >
-          Убрать из библиотеки
-        </TitleButton>
-        <IconButton className={filledStar ? 'active' : ''}>
-          <FontAwesomeIcon icon={faStar} />
-        </IconButton>
-      </ButtonBlock>
+      {currentFilmFilled.status === 'reviewed' ? (
+        ''
+      ) : (
+        <ButtonBlock onClick={LibraryHandler}>
+          <TitleButton
+            className={filledStar ? ' title-button' : 'active title-button'}
+          >
+            Добавить в библиотеку
+          </TitleButton>
+          <TitleButton
+            className={filledStar ? 'active title-button' : 'title-button'}
+          >
+            Убрать из библиотеки
+          </TitleButton>
+          <IconButton className={filledStar ? 'active' : ''}>
+            <FontAwesomeIcon icon={faStar} />
+          </IconButton>
+        </ButtonBlock>
+      )}
 
       <FilmBottomContent>
         <div onClick={filmDetailHandler} className='title'>
@@ -103,10 +107,12 @@ const Film = (film) => {
 
 const FilmWrapper = styled.article`
   position: relative;
+  border-radius: 12px;
+  overflow: hidden;
 
   img {
     cursor: pointer;
-    border-radius: 25px 25px 0px 0px;
+
     object-fit: cover;
     position: absolute;
     top: 0;
@@ -184,9 +190,9 @@ const TitleButton = styled.div`
   opacity: 0;
 
   position: absolute;
-  right: 30px;
+  right: 20px;
   margin-right: 15px;
-  padding: 7px 20px;
+  padding: 7px 10px;
 
   font-size: 16px;
 
@@ -255,7 +261,6 @@ const FilmBottomContent = styled.div`
 
   min-height: 120px;
 
-  border-radius: 0px 0px 25px 25px;
   background: #f1f1f1;
   padding: 15px;
 
