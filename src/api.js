@@ -18,8 +18,8 @@ export const popularFilmsURL = (genre) =>
 // новые по жанру
 // export const newFilmsURL = (genre) => `${newFilms}&with_genres=${genre}`
 
-export const newFilmsURL = () =>
-  `${newFilms}&release_date.gte=${nowDate}${languageSettings}`
+export const newFilmsURL = (genre) =>
+  `${newFilms}&release_date.gte=${nowDate}${languageSettings}&with_genres=${genre}`
 
 export const detailFilmURL = (id) =>
   `https://api.themoviedb.org/3/movie/${id}?${api_key}${lang}`
