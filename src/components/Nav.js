@@ -161,7 +161,7 @@ const NavWrapper = styled.div`
       visibility: visible;
       opacity: 1;
       left: 0;
-      top: 12vh;
+      top: 80px;
       background: #fff;
       z-index: 999;
     }

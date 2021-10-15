@@ -1,67 +1,68 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { loadFilms, setShowMode, setShowList } from '../../actions/filmsAction'
-import styled from 'styled-components'
-import DetailFilm from '../Detail/DetailFilm'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loadFilms, setShowMode, setShowList } from "../../actions/filmsAction";
+import { loadFilms2 } from "../../actions/loadFilms";
+import styled from "styled-components";
+import DetailFilm from "../Detail/DetailFilm";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBorderAll, faStream } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBorderAll, faStream } from "@fortawesome/free-solid-svg-icons";
 
-import Film from './Film'
-import FilmRow from './FilmRow'
+import Film from "./Film";
+import FilmRow from "./FilmRow";
 
 const FilmsList = () => {
-  const dispatch = useDispatch()
-  const { popularFilms, newFilms } = useSelector((state) => state.films)
-  const { showMode, showList } = useSelector((state) => state.elements)
+  const dispatch = useDispatch();
+  const { popularFilms, newFilms } = useSelector((state) => state.films);
+  const { showMode, showList } = useSelector((state) => state.elements);
 
   useEffect(() => {
-    dispatch(loadFilms(28))
-  }, [dispatch])
+    dispatch(loadFilms(28));
+  }, [dispatch]);
 
   const filterHandler = (e) => {
-    dispatch(loadFilms(e.target.value))
-  }
+    dispatch(loadFilms(e.target.value));
+  };
 
   const showModeHandler = (e) => {
-    const target = e.currentTarget.className
-    if (target === 'cells') {
-      dispatch(setShowMode('cells'))
+    const target = e.currentTarget.className;
+    if (target === "cells") {
+      dispatch(setShowMode("cells"));
     } else {
-      dispatch(setShowMode('rows'))
+      dispatch(setShowMode("rows"));
     }
-  }
+  };
 
   const showListHandler = (e) => {
-    const target = e.currentTarget.classList
-    console.log(target)
-    target.toggle('active')
-    dispatch(setShowList())
-  }
+    const target = e.currentTarget.classList;
+    console.log(target);
+    target.toggle("active");
+    dispatch(setShowList());
+  };
 
   return (
     <section>
       <SortPanel>
         <div
           className={`${
-            showList ? 'active category-toggler' : 'category-toggler'
+            showList ? "active category-toggler" : "category-toggler"
           }`}
           onClick={showListHandler}
         >
-          <span className='category-toggler__item'>Популярные</span>
-          <span className='category-toggler__item'>Скоро выйдут</span>
+          <span className="category-toggler__item">Популярные</span>
+          <span className="category-toggler__item">Скоро выйдут</span>
         </div>
 
-        <div className='right-side'>
-          <div className='showmode-toggler'>
+        <div className="right-side">
+          <div className="showmode-toggler">
             <div
-              className={showMode === 'cells' ? 'active cells' : 'cells'}
+              className={showMode === "cells" ? "active cells" : "cells"}
               onClick={showModeHandler}
             >
               <FontAwesomeIcon icon={faBorderAll} />
             </div>
             <div
-              className={showMode === 'rows' ? 'active rows' : 'rows'}
+              className={showMode === "rows" ? "active rows" : "rows"}
               onClick={showModeHandler}
             >
               <FontAwesomeIcon icon={faStream} />
@@ -69,20 +70,20 @@ const FilmsList = () => {
           </div>
 
           <select onChange={filterHandler}>
-            <option value=''>Все</option>
-            <option value='28'>Экшены</option>
-            <option value='12'>Приключения</option>
-            <option value='16'>Мультфильмы</option>
-            <option value='35'>Комедии</option>
-            <option value='18'>Драма</option>
-            <option value='14'>Фэнтези</option>
-            <option value='53'>Триллер</option>
+            <option value="">Все</option>
+            <option value="28">Экшены</option>
+            <option value="12">Приключения</option>
+            <option value="16">Мультфильмы</option>
+            <option value="35">Комедии</option>
+            <option value="18">Драма</option>
+            <option value="14">Фэнтези</option>
+            <option value="53">Триллер</option>
           </select>
         </div>
       </SortPanel>
 
       {!showList &&
-        (showMode === 'cells' ? (
+        (showMode === "cells" ? (
           <FilmsWrapper>
             <DetailFilm />
 
@@ -100,7 +101,7 @@ const FilmsList = () => {
         ))}
 
       {showList &&
-        (showMode === 'cells' ? (
+        (showMode === "cells" ? (
           <FilmsWrapper>
             <DetailFilm />
             {newFilms.map((film) => (
@@ -116,8 +117,8 @@ const FilmsList = () => {
           </FilmsWrapperRow>
         ))}
     </section>
-  )
-}
+  );
+};
 
 const FilmsWrapper = styled.div`
   display: grid;
@@ -139,7 +140,7 @@ const FilmsWrapper = styled.div`
   @media (max-width: 670px) {
     grid-template-columns: repeat(1, 1fr);
   }
-`
+`;
 
 const FilmsWrapperRow = styled.div`
   display: grid;
@@ -157,7 +158,7 @@ const FilmsWrapperRow = styled.div`
   @media (max-width: 767px) {
     grid-template-columns: repeat(1, 1fr);
   }
-`
+`;
 
 const SortPanel = styled.div`
   display: flex;
@@ -187,7 +188,7 @@ const SortPanel = styled.div`
     }
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       z-index: -1;
       top: 10px;
@@ -258,13 +259,13 @@ const SortPanel = styled.div`
       outline: none;
       background: #f1f1f1;
       color: #0c0c0c;
-      font-family: 'Russo One', sans-serif;
+      font-family: "Russo One", sans-serif;
 
       @media (max-width: 767px) {
         padding: 5px 10px;
       }
     }
   }
-`
+`;
 
-export default FilmsList
+export default FilmsList;
