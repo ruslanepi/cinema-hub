@@ -1,11 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import Film from './DefaultPage/Film'
-import DetailFilm from './Detail/DetailFilm'
+import Film from '../FilmsPage/Film'
+import DetailFilm from '../Detail/DetailFilm'
 import styled from 'styled-components'
 
 const SearchedList = () => {
-  const { searchedFilms, isSearching } = useSelector((state) => state.films)
+  const { searchedFilms, isSearching } = useSelector((state) => state.search)
 
   return (
     <div>

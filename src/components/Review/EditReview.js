@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
-import { getDetails } from '../../actions/filmsAction'
-import { addReview } from '../../actions/filmsAction'
+import { getDetails } from '../../redux/actions/filmsAction'
+import { addReview } from '../../redux/actions/filmsAction'
 
 const EditReview = () => {
   const { id } = useParams()

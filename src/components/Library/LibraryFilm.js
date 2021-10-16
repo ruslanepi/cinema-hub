@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeFilm } from '../actions/filmsAction'
+import { removeFilm } from '../../redux/actions/filmsAction'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faTimes,
@@ -10,7 +10,10 @@ import {
   faPlay,
 } from '@fortawesome/free-solid-svg-icons'
 
-import { changeStatusWatched, changeStatusWant } from '../actions/filmsAction'
+import {
+  changeStatusWatched,
+  changeStatusWant,
+} from '../../redux/actions/filmsAction'
 
 import classNames from 'classnames'
 

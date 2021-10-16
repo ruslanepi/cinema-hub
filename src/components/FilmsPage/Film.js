@@ -6,15 +6,14 @@ import {
   removeFilm,
   getDetails,
   toggleDetail,
-} from '../../actions/filmsAction'
+} from '../../redux/actions/filmsAction'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 const Film = (film) => {
-  const { id, title, poster_path, vote_average, release_date } = film
+  const { id, title, poster_path, vote_average, release_date, cast } = film
   const dispatch = useDispatch()
 
-  const [disabled, setDisabled] = useState(false)
   const [filledStar, setFilledStar] = useState(false)
 
   const { myLibrary } = useSelector((state) => state.library)
@@ -28,6 +27,12 @@ const Film = (film) => {
   useEffect(() => {
     checkFilmInLibrary()
   })
+
+  // useEffect(() => {
+  //   const currentFilm = myLibrary.find((item) => item.id === id)
+  // }, [])
+
+  console.log(currentFilm)
 
   const LibraryHandler = () => {
     if (checkFilmInLibrary()) {
@@ -96,6 +101,14 @@ const Film = (film) => {
       <FilmBottomContent>
         <div onClick={filmDetailHandler} className='title'>
           {title}
+        </div>
+        <div>
+          {cast &&
+            cast.slice(0, 3).map((people) => (
+              <div className='genre-title' key={people.id}>
+                {people.name}
+              </div>
+            ))}
         </div>
         <FilmParameters>
           <div>Оценка: {vote_average} / 10</div> <div>{release_date}</div>

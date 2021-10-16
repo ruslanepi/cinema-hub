@@ -1,21 +1,20 @@
-import FilmsList from "./components/DefaultPage/FilmsList";
+import FilmsPage from './components/FilmsPage/FilmsPage'
 
-import Nav from "./components/Nav";
+import Nav from './components/Nav'
 
-import Profile from "./components/Profile";
-import ActorsPage from "./components/Actors/ActorsPage";
-import SearchedList from "./components/SearchedList";
+import Profile from './components/Profile'
+import ActorsPage from './components/Actors/ActorsPage'
+import SearchedList from './components/Search/SearchedList'
 
-import styled from "styled-components";
-import GlobalStyles from "./components/GlobalStyles";
+import styled from 'styled-components'
+import GlobalStyles from './components/GlobalStyles'
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import ActorDetails from "./components/Actors/ActorDetails";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <Router>
         <GlobalStyles />
         <HeaderWrapper>
@@ -26,24 +25,24 @@ function App() {
 
         <ContentWrapper>
           <Switch>
-            <Route exact path="/">
-              <FilmsList />
+            <Route exact path='/'>
+              <FilmsPage />
             </Route>
-            <Route path="/search/:query">
+            <Route path='/search/:query'>
               <SearchedList />
             </Route>
-            <Route path="/profile">
+            <Route path='/profile'>
               <Profile />
             </Route>
 
-            <Route path="/actors">
+            <Route path='/actors'>
               <ActorsPage />
             </Route>
           </Switch>
         </ContentWrapper>
       </Router>
     </div>
-  );
+  )
 }
 
 const HeaderWrapper = styled.header`
@@ -54,7 +53,7 @@ const HeaderWrapper = styled.header`
   @media (max-width: 767px) {
     padding: 0px 15px;
   }
-`;
+`
 
 const Header = styled.div`
   display: flex;
@@ -66,7 +65,7 @@ const Header = styled.div`
   margin: 0 auto;
 
   padding: 0px 15px;
-`;
+`
 
 const ContentWrapper = styled.header`
   max-width: 1400px;
@@ -76,6 +75,6 @@ const ContentWrapper = styled.header`
   @media (max-width: 767px) {
     padding: 0px 15px;
   }
-`;
+`
 
-export default App;
+export default App

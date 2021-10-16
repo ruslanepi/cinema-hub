@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import Sidebar from './Sidebar'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import LibraryFilm from './LibraryFilm'
+import LibraryFilm from './Library/LibraryFilm'
 import LibraryDetailFilm from './Library/LibraryDetailFilm'
-import ReviewedFilm from './ReviewedFilm'
+import ReviewedFilm from './Review/ReviewedFilm'
 import EditReview from './Review/EditReview'
 
 const Profile = () => {

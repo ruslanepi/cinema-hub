@@ -6,13 +6,13 @@ const GlobalStyles = createGlobalStyle`
 
 * {
 
-  margin: 0;
-  padding: 0;
-  box-sizing:border-box;
+margin: 0;
+padding: 0;
+box-sizing:border-box;
 }
 
 p {
-  margin: 0;
+margin: 0;
 }
 
 .App {
@@ -20,17 +20,17 @@ p {
 }
 
 .header {
- padding: 15px 0px;
- background: #f9f9f9;
- width: 100%;
+padding: 15px 0px;
+background: #f9f9f9;
+width: 100%;
 }
 
 .sidebar {
- background: #e3e3e3;
+background: #e3e3e3;
 }
 
 footer {
- 
+
 }
 
 `

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import DetailSlider from './DetailSlider'
 import { useDispatch } from 'react-redux'
-import { toggleDetail } from '../../actions/filmsAction'
+import { toggleDetail } from '../../redux/actions/filmsAction'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
