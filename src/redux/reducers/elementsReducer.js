@@ -1,5 +1,5 @@
 const initState = {
-  showMode: "cells",
+  showMode: "rows",
   showList: false,
 };
 

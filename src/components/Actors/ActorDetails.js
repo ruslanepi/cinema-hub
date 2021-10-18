@@ -24,9 +24,11 @@ const ActorDetails = () => {
         <div className="actor__wrapper">
           <div className="actor__image">
             <img
-              src={`https://image.tmdb.org/t/p/w500${
-                profile_path ? profile_path : tempImage
-              }`}
+              src={
+                profile_path
+                  ? `https://image.tmdb.org/t/p/w500${profile_path} `
+                  : tempImage
+              }
               alt={name}
             />
           </div>
