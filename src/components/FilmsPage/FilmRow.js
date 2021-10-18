@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import {
   addFilm,
   removeFilm,
@@ -10,6 +11,7 @@ import {
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import tempImage from "../../images/temp-img.jpg";
 
 const FilmRow = (film) => {
   const { id, title, poster_path, release_date, genre_ids, cast } = film;
@@ -80,9 +82,6 @@ const FilmRow = (film) => {
       case 14:
         newArray.push("Фэнтези");
         break;
-      case 36:
-        newArray.push("Исторический");
-        break;
       case 27:
         newArray.push("Ужасы");
         break;
@@ -120,11 +119,11 @@ const FilmRow = (film) => {
       <FilmTopContent>
         <img
           onClick={filmDetailHandler}
-          src={`https://image.tmdb.org/t/p/w500${
+          src={
             poster_path
-              ? poster_path
-              : "https://image.tmdb.org/t/p/w500/b6MiDuJY694YWHMc9iaEc6nY0Qs.jpg"
-          }`}
+              ? `https://image.tmdb.org/t/p/w500${poster_path} `
+              : tempImage
+          }
           alt={title}
           className={
             currentFilm && currentFilm.status === "reviewed" ? "watched" : ""
@@ -168,12 +167,15 @@ const FilmRow = (film) => {
           </div>
         </FilmParameters>
 
-        <div>
+        <div className="actors-block">
+          <p className="actors-block__title">В главных ролях:</p>
           {cast &&
-            cast.slice(0, 3).map((people) => (
-              <span className="genre-title" key={people.id}>
-                {people.name}
-              </span>
+            cast.slice(0, 4).map((people) => (
+              <NavLink key={people.id} to={`/actors/${people.id}`}>
+                <span className="actor-name" key={people.id}>
+                  {people.name}
+                </span>
+              </NavLink>
             ))}
         </div>
 
@@ -202,7 +204,7 @@ const FilmWrapper = styled.article`
   }
 
   @media (max-width: 767px) {
-    grid-template-columns: 2fr 3fr;
+    grid-template-columns: 2fr 4fr;
     grid-template-rows: 60vw;
   }
 
@@ -257,6 +259,23 @@ const FilmBottomContent = styled.div`
 
   @media (max-width: 1200px) {
     padding: 10px 15px;
+  }
+
+  .actors-block {
+    &__title {
+      font-size: 13px;
+    }
+
+    .actor-name {
+      text-decoration: underline;
+      font-size: 12px;
+      margin-right: 10px;
+      color: #015595;
+
+      @media (max-width: 767px) {
+        margin-right: 5px;
+      }
+    }
   }
 
   .genre-title {

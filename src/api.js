@@ -30,6 +30,9 @@ export const screensFilmURL = (id) =>
 export const getFilmCreditsURL = (id) =>
   `${base_url}/3/movie/${id}/credits?${api_key}${languageSettings}`;
 
+export const getActorURL = (person_id) =>
+  `https://api.themoviedb.org/3/person/${person_id}?${api_key}${lang}`;
+
 export const popularActorsURL = () =>
   `https://api.themoviedb.org/3/person/popular?${api_key}${lang}&page=1`;
 

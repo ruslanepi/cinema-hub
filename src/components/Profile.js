@@ -1,25 +1,25 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useSelector } from 'react-redux'
-import Sidebar from './Sidebar'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import LibraryFilm from './Library/LibraryFilm'
-import LibraryDetailFilm from './Library/LibraryDetailFilm'
-import ReviewedFilm from './Review/ReviewedFilm'
-import EditReview from './Review/EditReview'
+import React from "react";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
+import Sidebar from "./Sidebar";
+import { Route, Switch } from "react-router-dom";
+import LibraryFilm from "./Library/LibraryFilm";
+import LibraryDetailFilm from "./Library/LibraryDetailFilm";
+import ReviewedFilm from "./Review/ReviewedFilm";
+import EditReview from "./Review/EditReview";
 
 const Profile = () => {
-  const { myLibrary } = useSelector((state) => state.library)
-  const filmsToWatch = myLibrary.filter((item) => item.status === 'want')
-  const filmsToReview = myLibrary.filter((item) => item.status === 'watched')
-  const filmsReviews = myLibrary.filter((item) => item.status === 'reviewed')
-  const filmsInLibrary = myLibrary.filter((item) => item.status !== 'reviewed')
+  const { myLibrary } = useSelector((state) => state.library);
+  const filmsToWatch = myLibrary.filter((item) => item.status === "want");
+  const filmsToReview = myLibrary.filter((item) => item.status === "watched");
+  const filmsReviews = myLibrary.filter((item) => item.status === "reviewed");
+  const filmsInLibrary = myLibrary.filter((item) => item.status !== "reviewed");
 
   return (
     <ProfilePage>
       <Sidebar />
       <Switch>
-        <Route path='/profile/wishlist'>
+        <Route path="/profile/wishlist">
           <ProfileContent>
             {filmsToWatch && (
               <FilmsWrapper>
@@ -35,7 +35,7 @@ const Profile = () => {
           </ProfileContent>
         </Route>
 
-        <Route path='/profile/to-review'>
+        <Route path="/profile/to-review">
           <ProfileContent>
             {filmsToReview && (
               <FilmsWrapper>
@@ -51,7 +51,7 @@ const Profile = () => {
           </ProfileContent>
         </Route>
 
-        <Route path='/profile/reviews'>
+        <Route path="/profile/reviews">
           <ProfileContent>
             {filmsReviews && (
               <FilmsWrapperReview>
@@ -67,15 +67,15 @@ const Profile = () => {
           </ProfileContent>
         </Route>
 
-        <Route path='/profile/edit-review/:id'>
+        <Route path="/profile/edit-review/:id">
           <EditReview />
         </Route>
 
-        <Route path='/profile/:id'>
+        <Route path="/profile/:id">
           <LibraryDetailFilm />
         </Route>
 
-        <Route path='/profile'>
+        <Route path="/profile">
           <ProfileContent>
             {filmsInLibrary && (
               <FilmsWrapper>
@@ -92,8 +92,8 @@ const Profile = () => {
         </Route>
       </Switch>
     </ProfilePage>
-  )
-}
+  );
+};
 
 const ProfilePage = styled.section`
   display: grid;
@@ -106,14 +106,14 @@ const ProfilePage = styled.section`
   a {
     text-decoration: none;
   }
-`
+`;
 
 const ProfileContent = styled.section`
   padding: 15px 25px;
 
   background: #fbfbfb;
   border-radius: 5px;
-`
+`;
 
 const FilmsWrapper = styled.article`
   display: grid;
@@ -123,11 +123,11 @@ const FilmsWrapper = styled.article`
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
-`
+`;
 
 const FilmsWrapperReview = styled.article`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-`
+`;
 
-export default Profile
+export default Profile;

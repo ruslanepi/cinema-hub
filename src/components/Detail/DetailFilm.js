@@ -1,47 +1,47 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useSelector } from 'react-redux'
-import DetailSlider from './DetailSlider'
-import { useDispatch } from 'react-redux'
-import { toggleDetail } from '../../redux/actions/filmsAction'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import React from "react";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
+import DetailSlider from "./DetailSlider";
+import { useDispatch } from "react-redux";
+import { toggleDetail } from "../../redux/actions/filmsAction";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const DetailFilm = () => {
   //проверяем загрузились ли данные
-  const { isLoading, isShow } = useSelector((state) => state.details)
-  const dispatch = useDispatch()
+  const { isLoading, isShow } = useSelector((state) => state.details);
+  const dispatch = useDispatch();
 
   // получаем данные
   const { vote_average, title, overview, genres } = useSelector(
     (state) => state.details.filmDetails
-  )
+  );
 
   const closeDetailHandler = (e) => {
-    console.log(e.currentTarget.classList)
-    if (e.target.classList.contains('shadow')) {
-      dispatch(toggleDetail())
+    console.log(e.currentTarget.classList);
+    if (e.target.classList.contains("shadow")) {
+      dispatch(toggleDetail());
     }
 
-    if (e.currentTarget.classList.contains('close-icon')) {
-      dispatch(toggleDetail())
+    if (e.currentTarget.classList.contains("close-icon")) {
+      dispatch(toggleDetail());
     }
-  }
+  };
 
   return (
     <>
       {!isLoading && isShow && (
-        <Overlay className='shadow' onClick={closeDetailHandler}>
+        <Overlay className="shadow" onClick={closeDetailHandler}>
           <DetailWrapper>
             <FilmHeader>
-              <div className='close-icon' onClick={closeDetailHandler}>
+              <div className="close-icon" onClick={closeDetailHandler}>
                 <FontAwesomeIcon icon={faTimes}>close</FontAwesomeIcon>
               </div>
               <h2>{title}</h2>
 
               <FilmAttributes>
-                <span class='votes'>Оценка: {vote_average} / 10</span>
-                <div class='genres'>
+                <span className="votes">Оценка: {vote_average} / 10</span>
+                <div className="genres">
                   <ul>
                     {genres.map((genre) => (
                       <li key={genre.id}>{genre.name}</li>
@@ -60,8 +60,8 @@ const DetailFilm = () => {
         </Overlay>
       )}
     </>
-  )
-}
+  );
+};
 
 const Overlay = styled.div`
   width: 100%;
@@ -81,7 +81,7 @@ const Overlay = styled.div`
   &::-webkit-scrollbar-track {
     background: white;
   }
-`
+`;
 
 const DetailWrapper = styled.div`
   position: absolute;
@@ -106,7 +106,7 @@ const DetailWrapper = styled.div`
     top: 0%;
     overflow: scroll;
   }
-`
+`;
 
 const FilmHeader = styled.div`
   padding: 25px 50px;
@@ -189,7 +189,7 @@ const FilmHeader = styled.div`
   @media (max-width: 767px) {
     padding: 15px;
   }
-`
+`;
 
 const FilmAttributes = styled.div`
   display: flex;
@@ -200,14 +200,14 @@ const FilmAttributes = styled.div`
     flex-direction: column;
     align-items: flex-start;
   }
-`
+`;
 
 const FilmContent = styled.div`
   padding: 25px 50px;
   @media (max-width: 767px) {
     padding: 15px;
   }
-`
+`;
 
 const SliderWrapper = styled.div`
   padding: 0px 50px;
@@ -215,6 +215,6 @@ const SliderWrapper = styled.div`
   @media (max-width: 767px) {
     padding: 25px 15px 25px 15px;
   }
-`
+`;
 
-export default DetailFilm
+export default DetailFilm;

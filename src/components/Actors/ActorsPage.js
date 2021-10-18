@@ -1,26 +1,26 @@
-import React, { useEffect } from 'react'
-import Actor from './Actor'
-import styled from 'styled-components'
-import ActorDetails from './ActorDetails'
+import React, { useEffect } from "react";
+import Actor from "./Actor";
+import styled from "styled-components";
+import ActorDetails from "./ActorDetails";
 
-import { useSelector, useDispatch } from 'react-redux'
-import { loadActors } from '../../redux/actions/filmsAction'
-import { Switch, Route } from 'react-router'
+import { useSelector, useDispatch } from "react-redux";
+import { loadActors } from "../../redux/actions/filmsAction";
+import { Switch, Route } from "react-router";
 
 const Actors = () => {
-  const dispatch = useDispatch()
-  const { popularActors } = useSelector((state) => state.actors)
+  const dispatch = useDispatch();
+  const { popularActors } = useSelector((state) => state.actors);
 
   useEffect(() => {
-    dispatch(loadActors())
-  }, [dispatch])
+    dispatch(loadActors());
+  }, [dispatch]);
 
   return (
     <Switch>
-      <Route path='/actors/:id'>
+      <Route path="/actors/:id">
         <ActorDetails />
       </Route>
-      <Route path='/actors'>
+      <Route path="/actors">
         <ActorsWrapper>
           {popularActors.map((actor) => (
             <Actor key={actor.id} {...actor} />
@@ -28,13 +28,13 @@ const Actors = () => {
         </ActorsWrapper>
       </Route>
     </Switch>
-  )
-}
+  );
+};
 
 const ActorsWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 15px;
-`
+`;
 
-export default Actors
+export default Actors;

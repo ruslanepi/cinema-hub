@@ -1,73 +1,73 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import { useSelector } from 'react-redux'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import classNames from 'classnames'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames";
 
 const Sidebar = () => {
-  const { myLibrary } = useSelector((state) => state.library)
-  const filmsToWatch = myLibrary.filter((item) => item.status === 'want')
-  const filmsToReview = myLibrary.filter((item) => item.status === 'watched')
-  const filmsReviewed = myLibrary.filter((item) => item.status === 'reviewed')
-  const filmsInLibrary = myLibrary.filter((item) => item.status !== 'reviewed')
+  const { myLibrary } = useSelector((state) => state.library);
+  const filmsToWatch = myLibrary.filter((item) => item.status === "want");
+  const filmsToReview = myLibrary.filter((item) => item.status === "watched");
+  const filmsReviewed = myLibrary.filter((item) => item.status === "reviewed");
+  const filmsInLibrary = myLibrary.filter((item) => item.status !== "reviewed");
 
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const activeSidebar = classNames({
     active: menuOpen,
-  })
+  });
 
   const activeMenuHandler = () => {
-    setMenuOpen(!menuOpen)
-  }
+    setMenuOpen(!menuOpen);
+  };
 
   return (
     <SidebarWrapper className={activeSidebar}>
-      <div className='sidebar-toggler' onClick={activeMenuHandler}>
-        <span className='sidebar-toggler__title'> Библиотека</span>
+      <div className="sidebar-toggler" onClick={activeMenuHandler}>
+        <span className="sidebar-toggler__title"> Библиотека</span>
         <FontAwesomeIcon
           icon={faChevronDown}
-          className='sidebar-toggler__icon'
+          className="sidebar-toggler__icon"
         />
       </div>
 
       <NavWrapper>
         <Link
-          to='/profile/wishlist'
-          className='menu-item'
+          to="/profile/wishlist"
+          className="menu-item"
           onClick={activeMenuHandler}
         >
-          <span class='menu-item__title'> Хочу посмотреть</span>
-          <span class='menu-item__counter'>{filmsToWatch.length}</span>
+          <span className="menu-item__title"> Хочу посмотреть</span>
+          <span className="menu-item__counter">{filmsToWatch.length}</span>
         </Link>
-        <Link to='/profile' className='menu-item' onClick={activeMenuHandler}>
-          <span class='menu-item__title'> Мои фильмы</span>
-          <span class='menu-item__counter'>{filmsInLibrary.length}</span>
+        <Link to="/profile" className="menu-item" onClick={activeMenuHandler}>
+          <span className="menu-item__title"> Мои фильмы</span>
+          <span className="menu-item__counter">{filmsInLibrary.length}</span>
         </Link>
-        <span class='watched-title'>Просмотренные:</span>
+        <span className="watched-title">Просмотренные:</span>
         <Link
-          to='/profile/to-review'
-          className='menu-item'
+          to="/profile/to-review"
+          className="menu-item"
           onClick={activeMenuHandler}
         >
-          <span class='menu-item__title'> Ожидает отзыва</span>
-          <span class='menu-item__counter'>{filmsToReview.length}</span>
+          <span className="menu-item__title"> Ожидает отзыва</span>
+          <span className="menu-item__counter">{filmsToReview.length}</span>
         </Link>
         <Link
-          to='/profile/reviews'
-          className='menu-item'
+          to="/profile/reviews"
+          className="menu-item"
           onClick={activeMenuHandler}
         >
-          <span class='menu-item__title'> С отзывом</span>
-          <span class='menu-item__counter'>{filmsReviewed.length}</span>
+          <span className="menu-item__title"> С отзывом</span>
+          <span className="menu-item__counter">{filmsReviewed.length}</span>
         </Link>
       </NavWrapper>
     </SidebarWrapper>
-  )
-}
+  );
+};
 
 const SidebarWrapper = styled.aside`
   height: 100vh;
@@ -141,26 +141,7 @@ const SidebarWrapper = styled.aside`
       }
     }
   }
-`
-
-const ProfileWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 20px;
-  margin-bottom: 26px;
-  img {
-    width: 30%;
-    border-radius: 10px;
-    margin-bottom: 15px;
-  }
-
-  .nickname {
-    font-family: 'Russo One', sans-serif;
-    font-size: 20px;
-  }
-`
+`;
 
 const NavWrapper = styled.div`
   display: flex;
@@ -178,7 +159,7 @@ const NavWrapper = styled.div`
 
     margin-bottom: 15px;
 
-    font-family: 'Russo One', sans-serif;
+    font-family: "Russo One", sans-serif;
     color: #565656;
     font-size: 16px;
     text-decoration: none;
@@ -188,8 +169,16 @@ const NavWrapper = styled.div`
       margin-left: 5px;
     }
 
+    @media (max-width: 1200px) {
+      font-size: 14px;
+    }
+
     .menu-item__title {
       padding: 12px 16px;
+
+      @media (max-width: 1200px) {
+        padding: 12px 10px;
+      }
     }
 
     .menu-item__counter {
@@ -204,6 +193,6 @@ const NavWrapper = styled.div`
   .watched-title {
     margin: 20px 0 15px 0px;
   }
-`
+`;
 
-export default Sidebar
+export default Sidebar;

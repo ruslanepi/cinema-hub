@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import {
   addFilm,
   removeFilm,
@@ -9,19 +10,16 @@ import {
 } from "../../redux/actions/filmsAction";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import tempImage from "../../images/temp-img.jpg";
 
 const Film = (film) => {
   const { id, title, poster_path, vote_average, release_date, cast } = film;
   const dispatch = useDispatch();
 
   const [filledStar, setFilledStar] = useState(false);
-  // const { popularFilms } = useSelector((state) => state.popular);
+
   const { myLibrary } = useSelector((state) => state.library);
   const currentFilm = myLibrary.find((item) => item.id === id);
-
-  // const currentFilmData = popularFilms.find((item) => item.id === id);
-
-  // console.log(currentFilmData);
 
   let currentFilmFilled = {};
   if (currentFilm) {
@@ -31,10 +29,6 @@ const Film = (film) => {
   useEffect(() => {
     checkFilmInLibrary();
   });
-
-  // useEffect(() => {
-  //   const currentFilm = myLibrary.find((item) => item.id === id)
-  // }, [])
 
   const LibraryHandler = () => {
     if (checkFilmInLibrary()) {
@@ -65,11 +59,11 @@ const Film = (film) => {
       <FilmTopContent>
         <img
           onClick={filmDetailHandler}
-          src={`https://image.tmdb.org/t/p/w500${
+          src={
             poster_path
-              ? poster_path
-              : "https://image.tmdb.org/t/p/w500/b6MiDuJY694YWHMc9iaEc6nY0Qs.jpg"
-          }`}
+              ? `https://image.tmdb.org/t/p/w500${poster_path} `
+              : tempImage
+          }
           alt={title}
           className={currentFilmFilled.status === "reviewed" ? "watched" : ""}
         />
@@ -101,19 +95,24 @@ const Film = (film) => {
       )}
 
       <FilmBottomContent>
-        <div onClick={filmDetailHandler} className="title">
-          {title}
-        </div>
         <div>
-          {cast &&
-            cast.slice(0, 3).map((people) => (
-              <span className="genre-title" key={people.id}>
-                {people.name}
-              </span>
-            ))}
+          <div onClick={filmDetailHandler} className="title">
+            {title}
+          </div>
+          <div className="actors-block">
+            <span>В ролях: </span>
+            {cast &&
+              cast.slice(0, 4).map((people) => (
+                <NavLink key={people.id} to={`/actors/${people.id}`}>
+                  <span className="actor-name" key={people.id}>
+                    {people.name}
+                  </span>
+                </NavLink>
+              ))}
+          </div>
         </div>
         <FilmParameters>
-          <div>Оценка: {vote_average} / 10</div> <div>{release_date}</div>
+          <div>TMDB: {vote_average} / 10</div> <div>{release_date}</div>
         </FilmParameters>
       </FilmBottomContent>
     </FilmWrapper>
@@ -274,7 +273,7 @@ const FilmBottomContent = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  min-height: 120px;
+  min-height: 150px;
 
   background: #f1f1f1;
   padding: 15px;
@@ -284,6 +283,15 @@ const FilmBottomContent = styled.div`
     font-weight: 500;
     margin-bottom: 10px;
     cursor: pointer;
+  }
+
+  .actors-block {
+    font-size: 14px;
+    .actor-name {
+      color: #015595;
+      margin-right: 8px;
+      text-decoration: underline;
+    }
   }
 
   button {
@@ -316,7 +324,7 @@ const FilmParameters = styled.div`
   justify-content: space-between;
   font-size: 14px;
   color: #555;
-  margin-bottom: 15px;
+  margin-bottom: 0;
 `;
 
 export default Film;

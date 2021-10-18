@@ -1,36 +1,34 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useDispatch, useSelector } from 'react-redux'
+import React from "react";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
 
-import { NavLink } from 'react-router-dom'
+import { NavLink } from "react-router-dom";
 
 const ReviewedFilm = (film) => {
-  const { id, title, poster_path, vote_average, release_date } = film
-  const { myLibrary } = useSelector((state) => state.library)
-  const currentFilm = myLibrary.find((item) => item.id === id)
-
-  const dispatch = useDispatch()
+  const { id, title, poster_path, vote_average, release_date } = film;
+  const { myLibrary } = useSelector((state) => state.library);
+  const currentFilm = myLibrary.find((item) => item.id === id);
 
   return (
     <FilmWrapper>
       <FilmLeftSide>
         <FilmTopContent>
           {currentFilm.voteRating ? (
-            <div className='vote-rating'>{currentFilm.voteRating}/10</div>
+            <div className="vote-rating">{currentFilm.voteRating}/10</div>
           ) : (
-            ''
+            ""
           )}
           <NavLink to={`/profile/${id}`}>
             <img
               src={`https://image.tmdb.org/t/p/w500${poster_path}`}
               alt={title}
-              className={currentFilm.status === 'reviewed' ? 'watched' : ''}
+              className={currentFilm.status === "reviewed" ? "watched" : ""}
             />
           </NavLink>
         </FilmTopContent>
 
         <FilmBottomContent>
-          <div className='title'>{title}</div>
+          <div className="title">{title}</div>
           <FilmParameters>
             <div>Оценка: {vote_average} / 10</div> <div>{release_date}</div>
           </FilmParameters>
@@ -44,8 +42,8 @@ const ReviewedFilm = (film) => {
         </NavLink>
       </FilmRightSide>
     </FilmWrapper>
-  )
-}
+  );
+};
 
 const FilmWrapper = styled.article`
   display: flex;
@@ -60,7 +58,7 @@ const FilmWrapper = styled.article`
   img {
     width: 100%;
   }
-`
+`;
 
 const FilmLeftSide = styled.div`
   width: 40%;
@@ -68,7 +66,7 @@ const FilmLeftSide = styled.div`
   @media (max-width: 768px) {
     width: 100%;
   }
-`
+`;
 const FilmRightSide = styled.div`
   padding: 25px;
   width: 60%;
@@ -78,7 +76,7 @@ const FilmRightSide = styled.div`
   @media (max-width: 768px) {
     width: 100%;
   }
-`
+`;
 
 const FilmTopContent = styled.div`
   position: relative;
@@ -92,7 +90,7 @@ const FilmTopContent = styled.div`
     color: #ffffff;
     font-size: 46px;
     z-index: 9;
-    font-family: 'Russo One', sans-serif;
+    font-family: "Russo One", sans-serif;
     letter-spacing: 1px;
     line-height: 39px;
   }
@@ -137,62 +135,7 @@ const FilmTopContent = styled.div`
       color: #111;
     }
   }
-`
-
-const ButtonBlock = styled.div`
-  position: absolute;
-  right: 15px;
-  top: 15px;
-
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: 100%;
-
-  &:hover .title-button {
-    right: 50px;
-    opacity: 1;
-    visibility: visible;
-  }
-`
-
-const TitleButton = styled.div`
-  transition: all ease 0.3s;
-  visibility: hidden;
-  opacity: 0;
-
-  position: absolute;
-  right: 30px;
-  margin-right: 15px;
-  padding: 7px 20px;
-
-  font-size: 14px;
-  color: #111;
-
-  border-radius: 20px;
-  background: #fffffff0;
-`
-
-const IconButton = styled.button`
-  height: 36px;
-  width: 37px;
-  background: #fff;
-  border: none;
-  border-radius: 50%;
-
-  font-size: 16px;
-  line-height: 36px;
-  color: #e40913;
-
-  box-shadow: inset 0px 0px 3px 1px #ccc;
-  cursor: pointer;
-  transition: all ease 0.3s;
-
-  &:hover {
-    background: #f3f3f3;
-    color: red;
-  }
-`
+`;
 
 const FilmBottomContent = styled.div`
   background: #fff;
@@ -209,7 +152,7 @@ const FilmBottomContent = styled.div`
     border-radius: 4px;
     padding: 5px 15px;
   }
-`
+`;
 
 const FilmParameters = styled.div`
   display: flex;
@@ -217,6 +160,6 @@ const FilmParameters = styled.div`
   font-size: 14px;
   color: #555;
   margin-bottom: 15px;
-`
+`;
 
-export default ReviewedFilm
+export default ReviewedFilm;

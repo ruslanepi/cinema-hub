@@ -1,75 +1,76 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useDispatch, useSelector } from 'react-redux'
-import { removeFilm } from '../../redux/actions/filmsAction'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React from "react";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { removeFilm } from "../../redux/actions/filmsAction";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import tempImage from "../../images/temp-img.jpg";
 import {
   faTimes,
   faStarHalfAlt,
   faCheck,
   faPlay,
-} from '@fortawesome/free-solid-svg-icons'
+} from "@fortawesome/free-solid-svg-icons";
 
 import {
   changeStatusWatched,
   changeStatusWant,
-} from '../../redux/actions/filmsAction'
+} from "../../redux/actions/filmsAction";
 
-import classNames from 'classnames'
+import classNames from "classnames";
 
-import { NavLink } from 'react-router-dom'
+import { NavLink } from "react-router-dom";
 
 const LibraryFilm = (film) => {
-  const { id, title, poster_path, vote_average, release_date } = film
-  const { myLibrary } = useSelector((state) => state.library)
-  const dispatch = useDispatch()
-  const currentFilm = myLibrary.find((item) => item.id === id)
+  const { id, title, poster_path, vote_average, release_date } = film;
+  const { myLibrary } = useSelector((state) => state.library);
+  const dispatch = useDispatch();
+  const currentFilm = myLibrary.find((item) => item.id === id);
 
   const removeFilmFromLibrary = (e) => {
-    dispatch(removeFilm(id))
-  }
+    dispatch(removeFilm(id));
+  };
 
   const changeStatusWatchedHandler = () => {
-    dispatch(changeStatusWatched(id))
-  }
+    dispatch(changeStatusWatched(id));
+  };
 
   const changeStatusWantHandler = () => {
-    dispatch(changeStatusWant(id))
-  }
+    dispatch(changeStatusWant(id));
+  };
 
   const watchedButton = classNames({
     button: true,
-    selected: currentFilm.status === 'watched',
-  })
+    selected: currentFilm.status === "watched",
+  });
 
   const wantButton = classNames({
     button: true,
-    selected: currentFilm.status === 'want',
-  })
+    selected: currentFilm.status === "want",
+  });
 
   const voteButton = classNames({
     button: true,
-    disable: currentFilm.status !== 'watched',
-  })
+    disable: currentFilm.status !== "watched",
+  });
 
   const watchedFilm = classNames({
-    watched: currentFilm.status === 'reviewed',
-  })
+    watched: currentFilm.status === "reviewed",
+  });
 
   return (
     <FilmWrapper>
       <FilmTopContent>
         {currentFilm.voteRating ? (
-          <div className='vote-rating'>{currentFilm.voteRating}/10</div>
+          <div className="vote-rating">{currentFilm.voteRating}/10</div>
         ) : (
-          ''
+          ""
         )}
 
-        {currentFilm.status === 'reviewed' ? (
-          ''
+        {currentFilm.status === "reviewed" ? (
+          ""
         ) : (
           <ButtonBlock onClick={removeFilmFromLibrary}>
-            <TitleButton className='title-button'>
+            <TitleButton className="title-button">
               Убрать из избранного
             </TitleButton>
             <IconButton>
@@ -80,30 +81,34 @@ const LibraryFilm = (film) => {
 
         <NavLink to={`/profile/${id}`}>
           <img
-            src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+            src={
+              poster_path
+                ? `https://image.tmdb.org/t/p/w500${poster_path} `
+                : tempImage
+            }
             alt={title}
             className={watchedFilm}
           />
         </NavLink>
-        {currentFilm.status === 'reviewed' ? (
-          ''
+        {currentFilm.status === "reviewed" ? (
+          ""
         ) : (
-          <div className='toggler'>
+          <div className="toggler">
             <div
               className={wantButton}
               onClick={(e) => changeStatusWantHandler(e)}
             >
-              <FontAwesomeIcon className='icon' icon={faPlay} /> Хочу посмотреть
+              <FontAwesomeIcon className="icon" icon={faPlay} /> Хочу посмотреть
             </div>
             <div
               className={watchedButton}
               onClick={(e) => changeStatusWatchedHandler(e)}
             >
-              <FontAwesomeIcon className='icon' icon={faCheck} /> Просмотрено
+              <FontAwesomeIcon className="icon" icon={faCheck} /> Просмотрено
             </div>
             <NavLink to={`/profile/${id}`}>
               <div className={voteButton}>
-                <FontAwesomeIcon className='icon' icon={faStarHalfAlt} />{' '}
+                <FontAwesomeIcon className="icon" icon={faStarHalfAlt} />{" "}
                 Оценить
               </div>
             </NavLink>
@@ -112,14 +117,14 @@ const LibraryFilm = (film) => {
       </FilmTopContent>
 
       <FilmBottomContent>
-        <div className='title'>{title}</div>
+        <div className="title">{title}</div>
         <FilmParameters>
           <div>Оценка: {vote_average} / 10</div> <div>{release_date}</div>
         </FilmParameters>
       </FilmBottomContent>
     </FilmWrapper>
-  )
-}
+  );
+};
 
 const FilmWrapper = styled.article`
   border-radius: 12px;
@@ -127,7 +132,7 @@ const FilmWrapper = styled.article`
   img {
     width: 100%;
   }
-`
+`;
 
 const FilmTopContent = styled.div`
   position: relative;
@@ -144,7 +149,7 @@ const FilmTopContent = styled.div`
     color: #ffffff;
     font-size: 46px;
     z-index: 9;
-    font-family: 'Russo One', sans-serif;
+    font-family: "Russo One", sans-serif;
     letter-spacing: 1px;
     line-height: 39px;
   }
@@ -204,7 +209,7 @@ const FilmTopContent = styled.div`
       }
     }
   }
-`
+`;
 
 const ButtonBlock = styled.div`
   position: absolute;
@@ -223,7 +228,7 @@ const ButtonBlock = styled.div`
     opacity: 1;
     visibility: visible;
   }
-`
+`;
 
 const TitleButton = styled.div`
   transition: all ease 0.3s;
@@ -240,7 +245,7 @@ const TitleButton = styled.div`
 
   border-radius: 20px;
   background: #fffffff0;
-`
+`;
 
 const IconButton = styled.button`
   height: 36px;
@@ -261,7 +266,7 @@ const IconButton = styled.button`
     background: #f3f3f3;
     color: red;
   }
-`
+`;
 
 const FilmBottomContent = styled.div`
   background: #fff;
@@ -278,7 +283,7 @@ const FilmBottomContent = styled.div`
     border-radius: 4px;
     padding: 5px 15px;
   }
-`
+`;
 
 const FilmParameters = styled.div`
   display: flex;
@@ -286,6 +291,6 @@ const FilmParameters = styled.div`
   font-size: 14px;
   color: #555;
   margin-bottom: 15px;
-`
+`;
 
-export default LibraryFilm
+export default LibraryFilm;
