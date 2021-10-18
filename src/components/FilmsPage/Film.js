@@ -1,62 +1,64 @@
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addFilm,
   removeFilm,
   getDetails,
   toggleDetail,
-} from '../../redux/actions/filmsAction'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+} from "../../redux/actions/filmsAction";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const Film = (film) => {
-  const { id, title, poster_path, vote_average, release_date, cast } = film
-  const dispatch = useDispatch()
+  const { id, title, poster_path, vote_average, release_date, cast } = film;
+  const dispatch = useDispatch();
 
-  const [filledStar, setFilledStar] = useState(false)
+  const [filledStar, setFilledStar] = useState(false);
+  // const { popularFilms } = useSelector((state) => state.popular);
+  const { myLibrary } = useSelector((state) => state.library);
+  const currentFilm = myLibrary.find((item) => item.id === id);
 
-  const { myLibrary } = useSelector((state) => state.library)
-  const currentFilm = myLibrary.find((item) => item.id === id)
+  // const currentFilmData = popularFilms.find((item) => item.id === id);
 
-  let currentFilmFilled = {}
+  // console.log(currentFilmData);
+
+  let currentFilmFilled = {};
   if (currentFilm) {
-    currentFilmFilled = currentFilm
+    currentFilmFilled = currentFilm;
   }
 
   useEffect(() => {
-    checkFilmInLibrary()
-  })
+    checkFilmInLibrary();
+  });
 
   // useEffect(() => {
   //   const currentFilm = myLibrary.find((item) => item.id === id)
   // }, [])
 
-  console.log(currentFilm)
-
   const LibraryHandler = () => {
     if (checkFilmInLibrary()) {
-      dispatch(removeFilm(id))
+      dispatch(removeFilm(id));
     } else {
-      dispatch(addFilm({ ...film }))
+      dispatch(addFilm({ ...film }));
     }
-  }
+  };
 
   const checkFilmInLibrary = () => {
-    const checker = myLibrary.filter((item) => item.id === id)
+    const checker = myLibrary.filter((item) => item.id === id);
     if (checker.length > 0) {
-      setFilledStar(true)
-      return true
+      setFilledStar(true);
+      return true;
     } else {
-      setFilledStar(false)
-      return false
+      setFilledStar(false);
+      return false;
     }
-  }
+  };
 
   const filmDetailHandler = () => {
-    dispatch(getDetails(id))
-    dispatch(toggleDetail())
-  }
+    dispatch(getDetails(id));
+    dispatch(toggleDetail());
+  };
 
   return (
     <FilmWrapper>
@@ -66,48 +68,48 @@ const Film = (film) => {
           src={`https://image.tmdb.org/t/p/w500${
             poster_path
               ? poster_path
-              : 'https://image.tmdb.org/t/p/w500/b6MiDuJY694YWHMc9iaEc6nY0Qs.jpg'
+              : "https://image.tmdb.org/t/p/w500/b6MiDuJY694YWHMc9iaEc6nY0Qs.jpg"
           }`}
           alt={title}
-          className={currentFilmFilled.status === 'reviewed' ? 'watched' : ''}
+          className={currentFilmFilled.status === "reviewed" ? "watched" : ""}
         />
         {currentFilmFilled.voteRating ? (
-          <div className='vote-rating'>{currentFilmFilled.voteRating}/10</div>
+          <div className="vote-rating">{currentFilmFilled.voteRating}/10</div>
         ) : (
-          ''
+          ""
         )}
       </FilmTopContent>
 
-      {currentFilmFilled.status === 'reviewed' ? (
-        ''
+      {currentFilmFilled.status === "reviewed" ? (
+        ""
       ) : (
         <ButtonBlock onClick={LibraryHandler}>
           <TitleButton
-            className={filledStar ? ' title-button' : 'active title-button'}
+            className={filledStar ? " title-button" : "active title-button"}
           >
             Добавить в библиотеку
           </TitleButton>
           <TitleButton
-            className={filledStar ? 'active title-button' : 'title-button'}
+            className={filledStar ? "active title-button" : "title-button"}
           >
             Убрать из библиотеки
           </TitleButton>
-          <IconButton className={filledStar ? 'active' : ''}>
+          <IconButton className={filledStar ? "active" : ""}>
             <FontAwesomeIcon icon={faStar} />
           </IconButton>
         </ButtonBlock>
       )}
 
       <FilmBottomContent>
-        <div onClick={filmDetailHandler} className='title'>
+        <div onClick={filmDetailHandler} className="title">
           {title}
         </div>
         <div>
           {cast &&
             cast.slice(0, 3).map((people) => (
-              <div className='genre-title' key={people.id}>
+              <span className="genre-title" key={people.id}>
                 {people.name}
-              </div>
+              </span>
             ))}
         </div>
         <FilmParameters>
@@ -115,8 +117,8 @@ const Film = (film) => {
         </FilmParameters>
       </FilmBottomContent>
     </FilmWrapper>
-  )
-}
+  );
+};
 
 const FilmWrapper = styled.article`
   position: relative;
@@ -137,7 +139,7 @@ const FilmWrapper = styled.article`
   img.watched {
     opacity: 0.7;
   }
-`
+`;
 
 const FilmTopContent = styled.article`
   position: relative;
@@ -153,11 +155,11 @@ const FilmTopContent = styled.article`
     color: #ffffff;
     font-size: 46px;
     z-index: 9;
-    font-family: 'Russo One', sans-serif;
+    font-family: "Russo One", sans-serif;
     letter-spacing: 1px;
     line-height: 39px;
   }
-`
+`;
 
 const ButtonBlock = styled.div`
   position: absolute;
@@ -195,7 +197,7 @@ const ButtonBlock = styled.div`
       visibility: visible;
     }
   }
-`
+`;
 
 const TitleButton = styled.div`
   transition: all ease 0.3s;
@@ -220,7 +222,7 @@ const TitleButton = styled.div`
     padding: 6px 16px;
     font-size: 18px;
   }
-`
+`;
 
 const IconButton = styled.button`
   height: 50px;
@@ -265,7 +267,7 @@ const IconButton = styled.button`
     width: 44px;
     font-size: 18px;
   }
-`
+`;
 
 const FilmBottomContent = styled.div`
   display: flex;
@@ -307,7 +309,7 @@ const FilmBottomContent = styled.div`
       color: #585656;
     }
   }
-`
+`;
 
 const FilmParameters = styled.div`
   display: flex;
@@ -315,6 +317,6 @@ const FilmParameters = styled.div`
   font-size: 14px;
   color: #555;
   margin-bottom: 15px;
-`
+`;
 
-export default Film
+export default Film;
